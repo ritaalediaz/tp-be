@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Pedido } from './entities/pedido.entity';
 import { Repository } from 'typeorm';
 import { Cliente } from 'src/clientes/entities/cliente.entity';
+import { DetallePedido } from 'src/detalle_pedido/entities/detalle_pedido.entity';
 
 
 @Injectable()
@@ -14,7 +15,9 @@ export class PedidosService {
   @InjectRepository(Pedido)
   private readonly pedidoRepository:Repository<Pedido>,
   @InjectRepository(Cliente)
-  private readonly clienteRepository:Repository<Cliente>
+  private readonly clienteRepository:Repository<Cliente>,
+  @InjectRepository(DetallePedido)
+  private readonly detallePedidoRepository:Repository<DetallePedido>
   
 ){}
 
@@ -45,6 +48,7 @@ export class PedidosService {
     const nuevoPedido = this.pedidoRepository.create({
       ...creatPedidoDto,
       cliente: nuevoCliente, // 👈 asociación del cliente con el pedido
+      detalles: [] 
     });
 
     return await this.pedidoRepository.save(nuevoPedido);
@@ -55,11 +59,16 @@ export class PedidosService {
 }
 
   async findAll():Promise <Pedido[]> {
-    return await this.pedidoRepository.find();
+    return await this.pedidoRepository.find({
+      relations: ['cliente', 'detalles.pizza'],
+    });
   }
 
   async findOne(id: number):Promise <Pedido | null> {
-    const pedido= await this.pedidoRepository.findOneBy({id})
+    const pedido= await this.pedidoRepository.findOne({
+      where: { id },
+      relations: ['cliente', 'detalles', 'detalles.pizza'],
+    });
     if(!pedido){
       throw new NotFoundException('Pedido no encontrado')
     }
@@ -78,3 +87,6 @@ export class PedidosService {
    await this.pedidoRepository.remove(pedido)
   }
 }
+
+
+

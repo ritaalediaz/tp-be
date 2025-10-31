@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Cliente } from "src/clientes/entities/cliente.entity";
+import { DetallePedido } from "src/detalle_pedido/entities/detalle_pedido.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Pizza {
@@ -16,5 +18,11 @@ precio:number
 
 @Column()
 stock:number
+
+
+@OneToMany(()=>DetallePedido,(detallePedido)=>detallePedido.pizza)
+detallePedidos:DetallePedido[];
+@ManyToOne(()=> Cliente, (cliente) => cliente.pizzas)
+cliente: Cliente;
 
 }

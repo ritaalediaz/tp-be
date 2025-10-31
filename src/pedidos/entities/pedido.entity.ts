@@ -1,7 +1,8 @@
 import { Cliente } from "src/clientes/entities/cliente.entity";
+import { DetallePedido } from "src/detalle_pedido/entities/detalle_pedido.entity";
 import { EstadoPedido } from "src/estado_pedido/entities/estado_pedido.entity";
 import { Pago } from "src/pagos/entities/pago.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,OneToOne, OneToMany } from "typeorm";
 
 
 @Entity()
@@ -35,4 +36,27 @@ export class Pedido {
     @OneToOne(()=>EstadoPedido, (esPedido)=> esPedido.pedido)
     @JoinColumn()
     esPedido:EstadoPedido;
+
+    @OneToMany(()=>DetallePedido,(detallePedido)=>detallePedido.pedido)
+    detalles: DetallePedido[];
+    detallePedidos: any;
+
+    //trabajar el pedido personalizado.
+    // pedido.entity.ts
+// @Entity()
+// export class Pedido {
+//   @PrimaryGeneratedColumn('uuid')
+//   id: string;
+
+//   @ManyToOne(() => Pizza)
+//   pizzaBase: Pizza; // por ejemplo, “Muzzarella”
+
+//   @Column('simple-array')
+//   ingredientesExtra: string[]; // ["bacon", "rúcula"]
+
+//   @Column({ default: 0 })
+//   precioTotal: number;
+// }
+
+
 }

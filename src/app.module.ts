@@ -9,6 +9,7 @@ import { Pedido } from './pedidos/entities/pedido.entity';
 import { ClientesModule } from './clientes/clientes.module';
 import { EstadoPedidoModule } from './estado_pedido/estado_pedido.module';
 import { DetallePedidoModule } from './detalle_pedido/detalle_pedido.module';
+import { PizzasModule } from './pizzas/pizzas.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -20,7 +21,7 @@ import { DetallePedidoModule } from './detalle_pedido/detalle_pedido.module';
       database: 'pizzaconmigo',
       autoLoadEntities:true,
       synchronize: true,}),
-PedidosModule, PagosModule,ClientesModule, EstadoPedidoModule,EstadoPedidoModule, DetallePedidoModule],
+PedidosModule, PagosModule,ClientesModule, EstadoPedidoModule,EstadoPedidoModule, DetallePedidoModule, PizzasModule],
   controllers: [AppController],
   providers: [AppService],
 })
