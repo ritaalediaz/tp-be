@@ -8,11 +8,10 @@ import { Pizza } from 'src/pizzas/entities/pizza.entity';
 
 @Module({
   imports: [
-      TypeOrmModule.forFeature([DetallePedido, Pedido,Pizza]), // 👈 esto registra los repositorios
-    
-    ],
+    TypeOrmModule.forFeature([DetallePedido, Pedido, Pizza]), // 👈 esto registra los repositorios
+  ],
   controllers: [DetallePedidoController],
   providers: [DetallePedidoService],
-  exports :[DetallePedidoService]
+  exports: [DetallePedidoService],
 })
 export class DetallePedidoModule {}

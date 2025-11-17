@@ -1,16 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PedidosService } from './pedidos.service';
-import { CreatePedidoDto } from "./dto/create-pedido.dto";
+import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { CreateClienteDto } from 'src/clientes/dto/create-cliente.dto';
-//hacer 
+//hacer
 @Controller('pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}
 
   @Post()
-  create(@Body() createPedidoDto: CreatePedidoDto,nombre_usuario:string) {
-    return this.pedidosService.create(createPedidoDto,nombre_usuario);
+  create(@Body() createPedidoDto: CreatePedidoDto, nombre_usuario: string) {
+    return this.pedidosService.create(createPedidoDto, nombre_usuario);
   }
 
   @Get()

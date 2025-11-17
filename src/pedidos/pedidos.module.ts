@@ -10,11 +10,10 @@ import { DetallePedido } from 'src/detalle_pedido/entities/detalle_pedido.entity
 //las tengo que registrar. traer entidad a module.
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Pedido, Cliente,Pago,DetallePedido]), // 👈 esto registra los repositorios
-  
+    TypeOrmModule.forFeature([Pedido, Cliente, Pago, DetallePedido]), // 👈 esto registra los repositorios
   ],
   controllers: [PedidosController],
   providers: [PedidosService],
-  exports:[PedidosService]
+  exports: [PedidosService],
 })
 export class PedidosModule {}

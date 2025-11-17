@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cliente } from './entities/cliente.entity';
 import { PedidosModule } from 'src/pedidos/pedidos.module';
 
-
 @Module({
-  imports:[TypeOrmModule.forFeature([Cliente]),forwardRef(()=>PedidosModule)],
+  imports: [
+    TypeOrmModule.forFeature([Cliente]),
+    forwardRef(() => PedidosModule),
+  ],
   controllers: [ClientesController],
   providers: [ClientesService],
-  exports: [ClientesService, TypeOrmModule]
+  exports: [ClientesService, TypeOrmModule],
 })
 export class ClientesModule {}

@@ -1,62 +1,65 @@
-import { Cliente } from "src/clientes/entities/cliente.entity";
-import { DetallePedido } from "src/detalle_pedido/entities/detalle_pedido.entity";
-import { EstadoPedido } from "src/estado_pedido/entities/estado_pedido.entity";
-import { Pago } from "src/pagos/entities/pago.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,OneToOne, OneToMany } from "typeorm";
-
+import { Cliente } from 'src/clientes/entities/cliente.entity';
+import { DetallePedido } from 'src/detalle_pedido/entities/detalle_pedido.entity';
+import { EstadoPedido } from 'src/estado_pedido/entities/estado_pedido.entity';
+import { Pago } from 'src/pagos/entities/pago.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Pedido {
-    @PrimaryGeneratedColumn()
-    id:number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    //preguntar si aca va la FK de Cliente
-    @Column()
-    monto:number;
-    
-    @Column()
-    direccion_envio:string;
-    
-    @Column()
-    cantidad:number;
-    
-    @Column('timestamp')
-    fecha:Date
+  //preguntar si aca va la FK de Cliente
+  @Column()
+  monto: number;
 
-    @ManyToOne(()=> Cliente,(cliente)=>cliente.pedido)
-   
-    @JoinColumn()
-    cliente:Cliente;
+  @Column()
+  direccion_envio: string;
 
-    @OneToOne(()=>Pago,(pago)=>pago.pedido)
+  @Column()
+  cantidad: number;
 
-    @JoinColumn()
-    pago:Pago;
+  @Column('timestamp')
+  fecha: Date;
 
-    @OneToOne(()=>EstadoPedido, (esPedido)=> esPedido.pedido)
-    @JoinColumn()
-    esPedido:EstadoPedido;
+  @ManyToOne(() => Cliente, (cliente) => cliente.pedido)
+  @JoinColumn()
+  cliente: Cliente;
 
-    @OneToMany(()=>DetallePedido,(detallePedido)=>detallePedido.pedido)
-    detalles: DetallePedido[];
-    detallePedidos: any;
+  @OneToOne(() => Pago, (pago) => pago.pedido)
+  @JoinColumn()
+  pago: Pago;
 
-    //trabajar el pedido personalizado.
-    // pedido.entity.ts
-// @Entity()
-// export class Pedido {
-//   @PrimaryGeneratedColumn('uuid')
-//   id: string;
+  @OneToOne(() => EstadoPedido, (esPedido) => esPedido.pedido)
+  @JoinColumn()
+  esPedido: EstadoPedido;
 
-//   @ManyToOne(() => Pizza)
-//   pizzaBase: Pizza; // por ejemplo, “Muzzarella”
+  @OneToMany(() => DetallePedido, (detallePedido) => detallePedido.pedido)
+  detalles: DetallePedido[];
+  detallePedidos: any;
 
-//   @Column('simple-array')
-//   ingredientesExtra: string[]; // ["bacon", "rúcula"]
+  //trabajar el pedido personalizado.
+  // pedido.entity.ts
+  // @Entity()
+  // export class Pedido {
+  //   @PrimaryGeneratedColumn('uuid')
+  //   id: string;
 
-//   @Column({ default: 0 })
-//   precioTotal: number;
-// }
+  //   @ManyToOne(() => Pizza)
+  //   pizzaBase: Pizza; // por ejemplo, “Muzzarella”
 
+  //   @Column('simple-array')
+  //   ingredientesExtra: string[]; // ["bacon", "rúcula"]
 
+  //   @Column({ default: 0 })
+  //   precioTotal: number;
+  // }
 }

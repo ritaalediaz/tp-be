@@ -10,18 +10,29 @@ import { ClientesModule } from './clientes/clientes.module';
 import { EstadoPedidoModule } from './estado_pedido/estado_pedido.module';
 import { DetallePedidoModule } from './detalle_pedido/detalle_pedido.module';
 import { PizzasModule } from './pizzas/pizzas.module';
+import { PersonalizarPizzasModule } from './personalizar-pizzas/personalizar-pizzas.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [
+    TypeOrmModule.forRoot({
       type: 'mysql', // o postgres, sqlite, etc.
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'Juan1215',
+      password: 'Erasmo00',
       database: 'pizzaconmigo',
-      autoLoadEntities:true,
-      synchronize: true,}),
-PedidosModule, PagosModule,ClientesModule, EstadoPedidoModule,EstadoPedidoModule, DetallePedidoModule, PizzasModule],
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    PedidosModule,
+    PagosModule,
+    ClientesModule,
+    EstadoPedidoModule,
+    EstadoPedidoModule,
+    DetallePedidoModule,
+    PizzasModule,
+    PersonalizarPizzasModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

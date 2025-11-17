@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DetallePedidoService } from './detalle_pedido.service';
 import { CreateDetallePedidoDto } from './dto/create-detalle_pedido.dto';
 import { UpdateDetallePedidoDto } from './dto/update-detalle_pedido.dto';
@@ -9,7 +17,10 @@ export class DetallePedidoController {
   constructor(private readonly detallePedidoService: DetallePedidoService) {}
 
   @Post()
-  create(@Body() createDetallePedidoDto: CreateDetallePedidoDto, @Body('pizza') pizza: Pizza) {
+  create(
+    @Body() createDetallePedidoDto: CreateDetallePedidoDto,
+    @Body('pizza') pizza: Pizza,
+  ) {
     return this.detallePedidoService.create(createDetallePedidoDto, pizza);
   }
 
@@ -24,7 +35,10 @@ export class DetallePedidoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDetallePedidoDto: UpdateDetallePedidoDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateDetallePedidoDto: UpdateDetallePedidoDto,
+  ) {
     return this.detallePedidoService.update(+id, updateDetallePedidoDto);
   }
 
@@ -33,7 +47,6 @@ export class DetallePedidoController {
     return this.detallePedidoService.remove(+id);
   }
 }
-
 
 // import { Body, Controller, Get, Param, Post, ParseIntPipe } from '@nestjs/common';
 // import { DetallePedidoService } from './detalle-pedido.service';
