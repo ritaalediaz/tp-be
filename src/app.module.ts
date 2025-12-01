@@ -19,7 +19,7 @@ import { PersonalizarPizzasModule } from './personalizar-pizzas/personalizar-piz
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'Erasmo00',
+      password: 'Juan1215',
       database: 'pizzaconmigo',
       autoLoadEntities: true,
       synchronize: true,
