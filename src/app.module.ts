@@ -16,11 +16,11 @@ import { PersonalizarPizzasModule } from './personalizar-pizzas/personalizar-piz
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql', // o postgres, sqlite, etc.
-      host: 'localhost',
+      host: 'bpkzt9uw2pczmswuxmuq-mysql.services.clever-cloud.com',
       port: 3306,
-      username: 'root',
-      password: 'Juan1215',
-      database: 'pizzaconmigo',
+      username: 'unxqkvd8ixud9bfa',
+      password: 'BSdKaoqOz04JXQpQOJUl',
+      database: 'bpkzt9uw2pczmswuxmuq',
       autoLoadEntities: true,
       synchronize: true,
     }),
