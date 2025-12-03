@@ -1,0 +1,65 @@
+
+.contenedor-metodos {
+  max-width: 600px;
+  margin : 60px auto;
+  background-color: rgba(255, 87, 87, 0.5);
+  padding: 30px;
+  border-radius: 12px;
+  margin-left: 1200px;
+  
+}
+
+h1{
+  color: #ffd700;
+  font-size: 30px;
+}
+
+h2 {
+  color: #ffd700;
+  font-size: 25px;
+}
+
+label {
+  display: block;
+  margin: 8px 0;
+}
+
+button {
+  background-color: #ffd700;
+  color: #000;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ffa500;
+}
+
+.mensaje-confirmacion {
+  margin-top: 20px;
+  font-size: 1.1em;
+  color: #00ff90;
+}
+
+/* Estilos para el botón volver */
+#volver {
+  background-color: transparent;
+  border: 2px solid #ffd700;
+  color: #ffd700;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#volver:hover {
+  background-color: #ffd700;
+  color: #000;
+}
+

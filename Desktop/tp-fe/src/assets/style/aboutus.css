@@ -1,0 +1,141 @@
+/* Contenedor general */
+.texto {
+  color: #fff;
+  overflow: hidden;
+  margin: 20px auto;
+  max-width: 800px;
+  width: 100%;
+  padding: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin-right: 70px; 
+  position: relative;
+  z-index: 1;
+
+}
+
+/* Alineación del contenido */
+.texto-grid {
+  display: flex;
+  
+ 
+}
+
+/* Imagen oculta */
+.texto-image {
+  display: none;
+  
+}
+
+
+/* Título */
+.texto-contenido h1 {
+  font-size: 3.5rem;
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  transform: translateY(45px);
+  text-shadow: 5px 5px 10px rgba(0,0,0,0.6);
+  
+}
+.texto-contenido h1::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  to {
+    left: 100%;
+  }
+}
+/* Párrafo */
+.texto-contenido p {
+  line-height: 1.6;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: justify;
+  transform: translateY(40px);
+  opacity: 0;
+  animation: aparecerTexto 1.5s ease-out 0.5s forwards;
+}
+/* Animación de entrada */
+@keyframes aparecerTexto {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px)
+ {
+  .texto-grid {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .texto-contenido {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .texto-contenido h1 {
+    font-size: 2rem;
+  }
+
+  .texto-contenido p {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px)
+ {
+  .texto-grid {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .texto-contenido {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .texto-contenido h1 {
+    font-size: 2rem;
+  }
+
+  .texto-contenido p {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1600px) and (max-width: 1999px)
+ {
+  .texto-grid {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .texto-contenido {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .texto-contenido h1 {
+    font-size: 2rem;
+  }
+
+  .texto-contenido p {
+    font-size: 1rem;
+  }
+}

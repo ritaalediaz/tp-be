@@ -1,0 +1,90 @@
+.mi-footer {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.logo-img {
+  max-width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+.mi-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+
+/* 📱 Móviles pequeños o estándar */
+@media (min-width: 375px) and (max-width: 479px) {
+  .logo-img { max-width: 80px; }
+  .social-icon { width: 26px; height: 26px; }
+  .mi-footer p { font-size: 0.8rem; }
+}
+
+
+/* 📲 Tablets en orientación vertical */
+@media (min-width: 768px) and (max-width: 991px) {
+  .footer-content { flex-direction: row; justify-content: space-around; }
+  .logo-img { max-width: 120px; }
+  .social-icon { width: 32px; height: 32px; }
+  .mi-footer p { font-size: 1rem; }
+}
+
+/* 💻 Tablets horizontales o notebooks pequeñas */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .footer-content { flex-direction: row; justify-content: space-between; }
+  .logo-img { max-width: 130px; }
+  .social-icon { width: 34px; height: 34px; }
+  .mi-footer p { font-size: 1rem; }
+}
+
+/* 🖥️ Notebooks o desktops estándar */
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .footer-content { flex-direction: row; justify-content: space-between; }
+  .logo-img { max-width: 150px; }
+  .social-icon { width: 36px; height: 36px; }
+  .mi-footer p { font-size: 1.1rem; }
+}
+
+/* 🖥️ Monitores grandes */
+@media (min-width: 1600px) and (max-width: 1999px) {
+  .logo-img { max-width: 160px; }
+  .social-icon { width: 40px; height: 40px; }
+  .mi-footer p { font-size: 1.2rem; }
+}

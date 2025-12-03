@@ -1,0 +1,291 @@
+main {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+}
+.contenedor-formulario h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.6em;
+  color: #ffffff;
+  
+}
+
+.contenedor-formulario {
+  max-width: 1300px;
+  width: 100%;
+  margin-left: 550px; /* 👉 más margen hacia la derecha */
+  margin-right: auto;
+  padding: 50px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* 🔽 menos espacio entre bloques */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.contenedor-formulario label {
+  margin-bottom: 20px; /* 🔽 menos espacio entre label y campo */
+  font-weight: bold;
+  color: #ffd700;
+  font-size: 1.2em; 
+  display: block;
+ 
+  width: 30%;
+}
+
+.contenedor-formulario input[type="text"],
+.contenedor-formulario input[type="email"],
+.contenedor-formulario input[type="tel"],
+.contenedor-formulario textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.contenedor-formulario .input,
+.contenedor-formulario textarea {
+  width: 100%;
+  padding: 34px 18px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.contenedor-formulario .input:focus,
+.contenedor-formulario textarea:focus {
+  border-color: #ffd700;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.contenedor-formulario textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.btn-enviar {
+  background-color: #ffd700;
+  color: #333;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 110px;
+  height: 45px;
+  align-self: center;
+  margin-top: 15px;
+}
+
+.btn-enviar:hover {
+  background-color: #ff6600;
+  transform: translateY(-2px);
+}
+
+iframe {
+  margin-block: 50px;
+  height: 300px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Fondo del popup */
+.swal2-popup {
+  background: #fefefe;
+  border-radius: 12px;
+  padding: 25px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Título */
+.swal2-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Texto */
+.swal2-html-container {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Ícono */
+.swal2-icon {
+  border: none;
+  box-shadow: none;
+}
+
+/* Botón de confirmación */
+.swal2-confirm {
+  background: linear-gradient(135deg, #ff6b6b, #ffcc25);
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.swal2-confirm:hover {
+  background: red
+}
+
+/* Botón de cancelar (si lo usás) */
+.swal2-cancel {
+  background: #ddd;
+  color: #333;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.swal2-cancel:hover {
+  background: #bbb;
+}
+/* 📱 Móviles muy pequeños: 320–374px 
+@media (max-width: 374px) {
+  .contenedor-formulario {
+    padding: 16px;
+    gap: 10px;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-enviar {
+    font-size: 0.9em;
+    width: 100%;
+    height: 38px;
+  }
+}
+
+/* 📱 Móviles pequeños: 375–479px 
+@media (min-width: 375px) and (max-width: 479px) {
+  .contenedor-formulario {
+    padding: 18px;
+    gap: 12px;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-enviar {
+    font-size: 0.95em;
+    width: 100%;
+    height: 40px;
+  }
+}
+
+/* 📱 Móviles grandes: 480–599px 
+@media (min-width: 480px) and (max-width: 599px) {
+  .contenedor-formulario {
+    padding: 20px;
+    gap: 14px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-enviar {
+    font-size: 1em;
+    padding: 8px 20px;
+    width: 100%;
+    height: 42px;
+  }
+}
+
+/* 📱 Phablets o móviles XL: 600–767px 
+@media (min-width: 600px) and (max-width: 767px) {
+  .contenedor-formulario {
+    padding: 24px;
+    gap: 16px;
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-enviar {
+    font-size: 1em;
+    width: 100%;
+    height: 44px;
+  }
+}
+
+/* 📲 Tablets verticales: 768–991px 
+@media (min-width: 768px) and (max-width: 991px) {
+  .contenedor-formulario {
+    padding: 25px;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-enviar {
+    font-size: 1em;
+    width: 100%;
+    height: 45px;
+  }
+}
+
+/* 💻 Tablets horizontales / notebooks pequeñas: 992–1199px 
+@media (min-width: 992px) and (max-width: 1199px) {
+  .contenedor-formulario {
+    padding: 30px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-enviar {
+    font-size: 1.05em;
+    width: 120px;
+    height: 45px;
+  }
+}
+
+/* 🖥️ Notebooks / desktops estándar: 1200–1599px 
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .contenedor-formulario {
+    padding: 30px;
+    max-width: 1000px;
+    margin-left: 150px; 👉 margen hacia la derecha 
+    margin-right: auto;
+
+
+/* 🖥️ Monitores grandes: 1600–1999px 
+@media (min-width: 1600px) and (max-width: 1999px) {
+  .contenedor-formulario {
+    max-width: 1200px;
+    margin-left: 250px; /* 👉 más margen 
+    margin-right: auto;
+  }
+
+
+/* 🖥️ Pantallas ultra anchas / 4K: 2000px o más 
+@media (min-width: 2000px) {
+  .contenedor-formulario {
+    padding: 50px;
+    max-width: 1400px;
+    margin-left: 400px; /* 👉 aún más margen 
+    margin-right: auto;
+  }

@@ -1,0 +1,198 @@
+
+.pizza-contenedor1 {
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+  background-color: #f5f5f5;
+}
+
+.tarjeta-pizza1 {
+  background-color: #ffffff;
+  border: 2px solid #bebdbd;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.tarjeta-pizza1 h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #d62828;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 2px solid #777070;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+  margin-bottom: 10px;
+}
+
+.input:focus {
+  border-color: #d62828;
+}
+
+.seccion-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 20px 0;
+}
+
+.bloque-opciones {
+  flex: 1 1 300px;
+  background-color: #fcf2cd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.bloque-opciones h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.ingredientes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #4b4a4a;
+}
+
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+  accent-color: #d62828;
+  width: 18px;
+  height: 18px;
+}
+
+.precio {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+  color: #2a9d8f;
+}
+
+.btn-agregar {
+  background-color: #d62828;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.btn-agregar:hover {
+  background-color: #b71c1c;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .seccion-horizontal {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .bloque-opciones {
+    flex: 1 1 100%;
+  }
+
+  .input {
+    font-size: 15px;
+  }
+
+  .form-group {
+    font-size: 15px;
+  }
+
+  .btn-agregar {
+    font-size: 15px;
+    padding: 10px 16px;
+  }
+
+  .precio {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 500px) {
+  .tarjeta-pizza1 h2 {
+    font-size: 24px;
+  }
+
+  .bloque-opciones h3 {
+    font-size: 18px;
+  }
+
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group input {
+    margin-bottom: 5px;
+  }
+}
+/* === SweetAlert2 custom styles === */
+.swal2-popup {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.swal2-title {
+  color: #d62828; /* rojo principal */
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.swal2-html-container {
+  color: #333;
+  font-size: 1rem;
+}
+
+.swal2-confirm {
+  background-color: #2a9d8f !important; /* verde confirmación */
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.swal2-cancel {
+  background-color: #999 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.swal2-confirm:hover,
+.swal2-cancel:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
