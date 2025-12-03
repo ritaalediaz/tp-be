@@ -1,7 +1,7 @@
 import { Cliente } from '../../clientes/entities/cliente.entity';
-import { DetallePedido } from 'src/detalle_pedido/entities/detalle_pedido.entity';
-import { EstadoPedido } from 'src/estado_pedido/entities/estado_pedido.entity';
-import { Pago } from 'src/pagos/entities/pago.entity';
+import { DetallePedido } from '../../detalle_pedido/entities/detalle_pedido.entity';
+import { EstadoPedido } from '../../estado_pedido/entities/estado_pedido.entity';
+import { Pago } from '../../pagos/entities/pago.entity';
 import {
   Column,
   Entity,
