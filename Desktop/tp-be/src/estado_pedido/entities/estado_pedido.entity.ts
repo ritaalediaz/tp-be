@@ -1,5 +1,5 @@
 import { IsNumber } from 'class-validator';
-import { Pedido } from 'src/pedidos/entities/pedido.entity';
+import { Pedido } from '../../pedidos/entities/pedido.entity';
 import { Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
 
 @Entity()

@@ -1,7 +1,7 @@
-import { Pedido } from 'src/pedidos/entities/pedido.entity';
-import { Pizza } from 'src/pizzas/entities/pizza.entity';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { OneToMany } from 'typeorm';
+import { Pedido } from '../../pedidos/entities/pedido.entity';
+import { Pizza } from '../../pizzas/entities/pizza.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+
 @Entity()
 export class Cliente {
   @PrimaryGeneratedColumn()

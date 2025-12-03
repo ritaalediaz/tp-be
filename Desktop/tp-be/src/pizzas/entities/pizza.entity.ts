@@ -1,5 +1,5 @@
-import { Cliente } from 'src/clientes/entities/cliente.entity';
-import { DetallePedido } from 'src/detalle_pedido/entities/detalle_pedido.entity';
+import { Cliente } from '../../clientes/entities/cliente.entity';
+import { DetallePedido } from '../../detalle_pedido/entities/detalle_pedido.entity';
 import {
   Column,
   Entity,
@@ -7,7 +7,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
 
 @Entity()
 export class Pizza {

@@ -1,4 +1,4 @@
-import { Pedido } from 'src/pedidos/entities/pedido.entity';
+import { Pedido } from '../../pedidos/entities/pedido.entity';
 import {
   Column,
   Entity,
