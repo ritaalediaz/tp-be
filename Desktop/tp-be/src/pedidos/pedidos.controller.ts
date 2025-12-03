@@ -11,13 +11,16 @@ import { PedidosService } from './pedidos.service';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { CreateClienteDto } from 'src/clientes/dto/create-cliente.dto';
-//hacer
+
 @Controller('pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}
 
   @Post()
-  create(@Body() createPedidoDto: CreatePedidoDto, nombre_usuario: string) {
+  create(
+    @Body() createPedidoDto: CreatePedidoDto,
+    @Body('nombre_usuario') nombre_usuario: string, // ✅ ahora con decorador
+  ) {
     return this.pedidosService.create(createPedidoDto, nombre_usuario);
   }
 

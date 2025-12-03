@@ -22,20 +22,6 @@ export class PedidosService {
     private readonly detallePedidoRepository: Repository<DetallePedido>,
   ) {}
 
-  // async create(creatPedidoDto:CreatePedidoDto,nombre_usuario:string):Promise<Pedido> {
-  //   try{
-  //     const nuevoCliente= this.clienteRepository.findOne({where:{nombre_usuario}})//busca cliente
-  //     if(!nuevoCliente){
-  //       console.error("No existe el cliente")
-  //     }
-  //     const nuevoPedido = this.pedidoRepository.create(creatPedidoDto);
-  //     return await this.pedidoRepository.save(nuevoPedido)
-
-  //   } catch(error){
-  //     console.error('Error al crear Pedido',error)
-  //     throw new InternalServerErrorException('Error al crear Pedido')
-  //   }
-  // }
   async create(
     creatPedidoDto: CreatePedidoDto,
     nombre_usuario: string,
@@ -43,16 +29,16 @@ export class PedidosService {
     try {
       const nuevoCliente = await this.clienteRepository.findOne({
         where: { nombre_usuario },
-      }); // 👈 await agregado
+      });
 
       if (!nuevoCliente) {
         console.error('No existe el cliente');
-        throw new NotFoundException('Cliente no encontrado'); // 👈 mejor manejo de error
+        throw new NotFoundException('Cliente no encontrado');
       }
 
       const nuevoPedido = this.pedidoRepository.create({
         ...creatPedidoDto,
-        cliente: nuevoCliente, // 👈 asociación del cliente con el pedido
+        cliente: nuevoCliente,
         detalles: [],
       });
 
@@ -80,8 +66,13 @@ export class PedidosService {
     return pedido;
   }
 
-  update(id: number, updatePedidoDto: UpdatePedidoDto) {
-    return `This action updates a #${id} pedido`;
+  async update(id: number, updatePedidoDto: UpdatePedidoDto): Promise<Pedido> {
+    const pedido = await this.pedidoRepository.findOne({ where: { id } });
+    if (!pedido) {
+      throw new NotFoundException('Pedido no encontrado');
+    }
+    Object.assign(pedido, updatePedidoDto);
+    return await this.pedidoRepository.save(pedido);
   }
 
   async remove(id: number) {
@@ -90,5 +81,6 @@ export class PedidosService {
       throw new NotFoundException('Pedido no encontrado');
     }
     await this.pedidoRepository.remove(pedido);
+    return { message: 'Pedido eliminado correctamente' };
   }
 }
