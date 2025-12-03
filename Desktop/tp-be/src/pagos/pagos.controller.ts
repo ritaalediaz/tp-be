@@ -1,42 +1,33 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body, Query, Get, Param, Delete } from '@nestjs/common';
 import { PagosService } from './pagos.service';
 import { CreatePagoDto } from './dto/create-pago.dto';
 import { UpdatePagoDto } from './dto/update-pago.dto';
+import { Pago } from './entities/pago.entity';
 
 @Controller('pagos')
 export class PagosController {
   constructor(private readonly pagosService: PagosService) {}
 
   @Post()
-  create(@Body() createPagoDto: CreatePagoDto, fecha: Date) {
-    return this.pagosService.create(createPagoDto, fecha);
+  async create(
+    @Body() createPagoDto: CreatePagoDto,
+    @Query('id_pedido') id_pedido: number, // 👈 recibe el id del pedido
+  ): Promise<Pago> {
+    return this.pagosService.create(createPagoDto, id_pedido);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Pago[]> {
     return this.pagosService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pagosService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePagoDto: UpdatePagoDto) {
-    return this.pagosService.update(+id, updatePagoDto);
+  async findOne(@Param('id') id: number): Promise<Pago> {
+    return this.pagosService.findOne(id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pagosService.remove(+id);
+  async remove(@Param('id') id: number) {
+    return this.pagosService.remove(id);
   }
 }

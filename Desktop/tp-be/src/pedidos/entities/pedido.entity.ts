@@ -17,7 +17,6 @@ export class Pedido {
   @PrimaryGeneratedColumn()
   id: number;
 
-  //preguntar si aca va la FK de Cliente
   @Column()
   monto: number;
 
@@ -44,22 +43,7 @@ export class Pedido {
 
   @OneToMany(() => DetallePedido, (detallePedido) => detallePedido.pedido)
   detalles: DetallePedido[];
+
+  // Si usás esta propiedad en algún lado, podés mantenerla:
   detallePedidos: any;
-
-  //trabajar el pedido personalizado.
-  // pedido.entity.ts
-  // @Entity()
-  // export class Pedido {
-  //   @PrimaryGeneratedColumn('uuid')
-  //   id: string;
-
-  //   @ManyToOne(() => Pizza)
-  //   pizzaBase: Pizza; // por ejemplo, “Muzzarella”
-
-  //   @Column('simple-array')
-  //   ingredientesExtra: string[]; // ["bacon", "rúcula"]
-
-  //   @Column({ default: 0 })
-  //   precioTotal: number;
-  // }
 }

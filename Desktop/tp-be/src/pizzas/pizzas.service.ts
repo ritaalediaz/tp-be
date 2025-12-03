@@ -30,29 +30,29 @@ export class PizzasService {
     return await this.pizzaRepository.find();
   }
 
-  async findOne(id: number): Promise<Pizza | null> {
+  async findOne(id: number): Promise<Pizza> {
     const pizza = await this.pizzaRepository.findOneBy({ id });
     if (!pizza) {
       throw new NotFoundException('Pizza no encontrada');
     }
-
     return pizza;
   }
 
-  async update(id: number, updatePizzaDto: UpdatePizzaDto) {
+  async update(id: number, updatePizzaDto: UpdatePizzaDto): Promise<Pizza> {
     const pizza = await this.pizzaRepository.findOne({ where: { id } });
     if (!pizza) {
-      throw new NotFoundException('Pizza no encontradaa');
+      throw new NotFoundException('Pizza no encontrada');
     }
     Object.assign(pizza, updatePizzaDto);
     return await this.pizzaRepository.save(pizza);
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<{ message: string }> {
     const pizza = await this.pizzaRepository.findOne({ where: { id } });
     if (!pizza) {
       throw new NotFoundException('Pizza no encontrada.');
     }
     await this.pizzaRepository.remove(pizza);
+    return { message: 'Pizza eliminada correctamente' };
   }
 }

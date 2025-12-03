@@ -8,8 +8,8 @@ import { UpdatePedidoDto } from './dto/update-pedido.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pedido } from './entities/pedido.entity';
 import { Repository } from 'typeorm';
-import { Cliente } from 'src/clientes/entities/cliente.entity';
-import { DetallePedido } from 'src/detalle_pedido/entities/detalle_pedido.entity';
+import { Cliente } from '../clientes/entities/cliente.entity';
+import { DetallePedido } from '../detalle_pedido/entities/detalle_pedido.entity';
 
 @Injectable()
 export class PedidosService {

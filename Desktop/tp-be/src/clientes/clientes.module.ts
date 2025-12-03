@@ -3,7 +3,8 @@ import { ClientesService } from './clientes.service';
 import { ClientesController } from './clientes.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cliente } from './entities/cliente.entity';
-import { PedidosModule } from 'src/pedidos/pedidos.module';
+// 🔧 Import corregido: relativo en vez de 'src/...'
+import { PedidosModule } from '../pedidos/pedidos.module';
 
 @Module({
   imports: [

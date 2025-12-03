@@ -1,5 +1,4 @@
 import {
-  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -7,11 +6,11 @@ import {
 import { CreateDetallePedidoDto } from './dto/create-detalle_pedido.dto';
 import { UpdateDetallePedidoDto } from './dto/update-detalle_pedido.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pedido } from 'src/pedidos/entities/pedido.entity';
 import { Repository } from 'typeorm';
-import { Pizza } from 'src/pizzas/entities/pizza.entity';
-import { NotFoundError } from 'rxjs';
 import { DetallePedido } from './entities/detalle_pedido.entity';
+// 🔧 Imports corregidos: relativos en vez de 'src/...'
+import { Pedido } from '../pedidos/entities/pedido.entity';
+import { Pizza } from '../pizzas/entities/pizza.entity';
 
 @Injectable()
 export class DetallePedidoService {
@@ -26,7 +25,6 @@ export class DetallePedidoService {
 
   async create(
     createDetallePedidoDto: CreateDetallePedidoDto,
-    pizza: Pizza,
   ): Promise<DetallePedido> {
     try {
       const pedidos = await this.pedidoRepository.findOneBy({
@@ -37,6 +35,7 @@ export class DetallePedidoService {
         console.error('No existe el pedido');
         throw new NotFoundException('Pedido no encontrado');
       }
+
       const pizza = await this.pizzaRepository.findOneBy({
         id: createDetallePedidoDto.id_pizza,
       });
@@ -44,15 +43,16 @@ export class DetallePedidoService {
         console.error('No existe la pizza');
         throw new NotFoundException('Pizza no encontrada');
       }
+
       const detallePedido = this.detallePedidoRepository.create({
         pedido: pedidos,
         pizza: pizza,
         cantidad: createDetallePedidoDto.cantidad || 1,
       });
       return this.detallePedidoRepository.save(detallePedido);
-    } catch {
-      console.error('Error');
-      throw new InternalServerErrorException('Error al crear el detalle ');
+    } catch (error) {
+      console.error('Error al crear detalle', error);
+      throw new InternalServerErrorException('Error al crear el detalle');
     }
   }
 

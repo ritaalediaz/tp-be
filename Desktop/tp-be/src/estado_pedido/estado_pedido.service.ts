@@ -6,8 +6,9 @@ import {
 import { CreateEstadoPedidoDto } from './dto/create-estado_pedido.dto';
 import { UpdateEstadoPedidoDto } from './dto/update-estado_pedido.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pedido } from 'src/pedidos/entities/pedido.entity';
 import { Repository } from 'typeorm';
+// 🔧 Import corregido: relativo en vez de 'src/...'
+import { Pedido } from '../pedidos/entities/pedido.entity';
 import { EstadoPedido } from './entities/estado_pedido.entity';
 
 @Injectable()
@@ -27,7 +28,7 @@ export class EstadoPedidoService {
       const newPedido = await this.pedidoRepository.findOne({ where: { id } });
       if (!newPedido) {
         console.error('no existe el pedido');
-        throw new NotFoundException('Pedido no encontrado'); //manejo de error
+        throw new NotFoundException('Pedido no encontrado'); // manejo de error
       }
 
       const newEstPedido = this.estPedidoRepository.create({

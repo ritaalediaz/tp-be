@@ -1,3 +1,4 @@
+
 import {
   Controller,
   Get,
@@ -10,18 +11,15 @@ import {
 import { DetallePedidoService } from './detalle_pedido.service';
 import { CreateDetallePedidoDto } from './dto/create-detalle_pedido.dto';
 import { UpdateDetallePedidoDto } from './dto/update-detalle_pedido.dto';
-import { Pizza } from 'src/pizzas/entities/pizza.entity';
 
 @Controller('detalle-pedido')
 export class DetallePedidoController {
   constructor(private readonly detallePedidoService: DetallePedidoService) {}
 
   @Post()
-  create(
-    @Body() createDetallePedidoDto: CreateDetallePedidoDto,
-    @Body('pizza') pizza: Pizza,
-  ) {
-    return this.detallePedidoService.create(createDetallePedidoDto, pizza);
+  create(@Body() createDetallePedidoDto: CreateDetallePedidoDto) {
+    // 🔧 Solo pasamos el DTO, el service se encarga de buscar pedido y pizza por id
+    return this.detallePedidoService.create(createDetallePedidoDto);
   }
 
   @Get()
@@ -47,24 +45,3 @@ export class DetallePedidoController {
     return this.detallePedidoService.remove(+id);
   }
 }
-
-// import { Body, Controller, Get, Param, Post, ParseIntPipe } from '@nestjs/common';
-// import { DetallePedidoService } from './detalle-pedido.service';
-// import { CreateDetallePedidoDto } from './dto/create-detalle-pedido.dto';
-
-// @Controller('detalles')
-// export class DetallePedidoController {
-//   constructor(private readonly detalleService: DetallePedidoService) {}
-
-//   // Crear un detalle de pedido
-//   @Post()
-//   async create(@Body() dto: CreateDetallePedidoDto) {
-//     return this.detalleService.create(dto);
-//   }
-
-//   // Obtener un pedido con todos sus detalles y pizzas
-//   @Get('pedido/:id')
-//   async getPedidoDetalle(@Param('id', ParseIntPipe) id: number) {
-//     return this.detalleService.getPedidoConDetalles(id);
-//   }
-// }

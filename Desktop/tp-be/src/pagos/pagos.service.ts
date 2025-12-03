@@ -8,7 +8,7 @@ import { UpdatePagoDto } from './dto/update-pago.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pago } from './entities/pago.entity';
 import { Repository } from 'typeorm';
-import { Pedido } from 'src/pedidos/entities/pedido.entity';
+import { Pedido } from '../pedidos/entities/pedido.entity';
 
 @Injectable()
 export class PagosService {
@@ -19,23 +19,22 @@ export class PagosService {
     private readonly pedidoRepository: Repository<Pedido>,
   ) {}
 
-  async create(createPagoDto: CreatePagoDto, fecha: Date): Promise<Pago> {
+  async create(createPagoDto: CreatePagoDto, id_pedido: number): Promise<Pago> {
     try {
       const nuevoPedido = await this.pedidoRepository.findOne({
-        where: { fecha },
-      }); //aca pongo el id de Pedido
+        where: { id: id_pedido },
+      });
       if (!nuevoPedido) {
-        console.error('no existe el pedido');
-        throw new NotFoundException('Pedido no encontrado'); //Manejo de error
+        throw new NotFoundException('Pedido no encontrado');
       }
 
       const nuevoPago = this.pagoRepository.create({
         ...createPagoDto,
-        pedido: nuevoPedido, //asociacion del pago con el pedido
+        pedido: nuevoPedido,
       });
       return await this.pagoRepository.save(nuevoPago);
     } catch (error) {
-      console.error('Error al crear el pedido', error);
+      console.error('Error al crear el pago', error);
       throw new InternalServerErrorException('Error al crear pago');
     }
   }
@@ -44,7 +43,7 @@ export class PagosService {
     return await this.pagoRepository.find();
   }
 
-  async findOne(id: number): Promise<Pago | null> {
+  async findOne(id: number): Promise<Pago> { // 👈 ahora devuelve solo Pago
     const pago = await this.pagoRepository.findOneBy({ id });
     if (!pago) {
       throw new NotFoundException('Pago no encontrado');
