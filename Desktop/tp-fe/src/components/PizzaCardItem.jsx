@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // 👈 importamos SweetAlert2
 
 function PizzaCardItem({ pizza, onAgregar }) {
   const [cantidad, setCantidad] = useState(0);
+
+  const handleChange = (e) => {
+    setCantidad(Number(e.target.value));
+  };
 
   const handleClick = () => {
     if (cantidad > 0) {
@@ -12,28 +16,26 @@ function PizzaCardItem({ pizza, onAgregar }) {
       Swal.fire({
         icon: 'warning',
         title: 'Cantidad inválida',
-        text: 'Seleccioná una cantidad válida antes de agregar al carrito',
-        confirmButtonColor: '#f36f17',
+        text: 'Seleccioná una cantidad válida',
       });
     }
   };
 
   return (
     <div className="tarjeta-pizza">
-      <img
-        src={`/imagenes/${pizza.imagen || 'default.png'}`}
-        alt={`Pizza ${pizza.nombre}`}
-        className="pizza-imagen"
-        onError={(e) => (e.currentTarget.src = '/imagenes/default.png')}
-      />
+      {/* 🖼️ Imagen de la pizza */}
+      <div className="imagen-contenedor">
+        <img
+          src={pizza.imagen || "/imagenes/default.png"}
+          alt={pizza.nombre || "Pizza genérica"}
+          className="pizza-imagen"
+        />
+      </div>
 
-      <h3>{pizza.nombre}</h3>
-      <p className="precio">${pizza.precio}</p>
-
-      {/* ✅ Mostrar descripción si existe */}
-      {pizza.descripcion && (
-        <p className="descripcion">{pizza.descripcion}</p>
-      )}
+      <h3>{pizza.nombre || "Sin nombre"}</h3>
+      {/* ❌ Eliminamos la descripción */}
+      
+      <p className="precio">Precio: ${pizza.precio || "?"}</p>
 
       <div className="cantidad">
         <label htmlFor={`cant-${pizza.id}`}>Cantidad:</label>
@@ -42,11 +44,11 @@ function PizzaCardItem({ pizza, onAgregar }) {
           id={`cant-${pizza.id}`}
           min="1"
           value={cantidad}
-          onChange={(e) => setCantidad(Number(e.target.value))}
+          onChange={handleChange}
         />
       </div>
 
-      <button className="btn-agregar" onClick={handleClick}>
+      <button onClick={handleClick} className="btn-agregar">
         Agregar al carrito
       </button>
     </div>
@@ -54,3 +56,4 @@ function PizzaCardItem({ pizza, onAgregar }) {
 }
 
 export default PizzaCardItem;
+

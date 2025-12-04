@@ -3,28 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PizzaCardItem from '../components/PizzaCardItem';
 import { PedidoContext } from '../context/PedidoContext';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // 👈 importamos SweetAlert2
 import '../assets/style/PizzaCard.css';
 
 function PizzaCard() {
   const [total, setTotal] = useState(0);
-  const [pizzas, setPizzas] = useState([]);
+  const [pizzas, setPizzas] = useState([]); // ahora vienen del BE
   const { pedidoLista, setPedidoLista } = useContext(PedidoContext);
   const navigate = useNavigate();
 
   // 🔗 Traer pizzas del backend
   useEffect(() => {
-    axios.get("https://tp-be.onrender.com/pizzas")
+    axios.get("http://localhost:3000/pizzas") // endpoint 
       .then((res) => {
         setPizzas(res.data);
       })
       .catch((err) => {
         console.error("Error al cargar pizzas:", err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'No se pudieron cargar las pizzas desde el servidor',
-        });
       });
   }, []);
 
@@ -41,19 +36,15 @@ function PizzaCard() {
     }
 
     const subtotal = pizza.precio * cantidadNum;
-
-    // ✅ Si la pizza ya está en el carrito, actualizamos cantidad y subtotal
-    setPedidoLista(prev => {
-      const existente = prev.find(p => p.id === pizza.id);
-      if (existente) {
-        existente.cantidad += cantidadNum;
-        existente.subtotal += subtotal;
-        return [...prev];
-      }
-      return [...prev, { ...pizza, cantidad: cantidadNum, subtotal }];
-    });
-
     setTotal(prev => prev + subtotal);
+
+    const pizzaConCantidad = {
+      ...pizza,
+      cantidad: cantidadNum,
+      subtotal
+    };
+
+    setPedidoLista(prev => [...prev, pizzaConCantidad]);
 
     Swal.fire({
       icon: 'success',
@@ -80,7 +71,7 @@ function PizzaCard() {
         setTotal(0);
         Swal.fire({
           icon: 'success',
-          title: 'Carrito vacío',
+          title: 'Carrito vacio',
           timer: 1200,
           showConfirmButton: false
         });
@@ -88,50 +79,51 @@ function PizzaCard() {
     });
   };
 
-  return (
-    <main className="page-pizzas">
-      <div className="pizzas-wrapper">
-        <div className="pizza-contenedor"> {/* ✅ corregido */}
-          {pizzas.map(pizza => (
-            <PizzaCardItem
-              key={pizza.id}
-              pizza={pizza}
-              onAgregar={handleAgregar}
-            />
-          ))}
-        </div>
+return (
+  <main className="page-pizzas">
+    <div className="pizzas-wrapper">
+      <div className="pizza-contenedor3">
+        {pizzas.map(pizza => (
+          <PizzaCardItem
+            key={pizza.id}
+            pizza={pizza}
+            onAgregar={handleAgregar}
+          />
+        ))}
+      </div>
 
-        <div className="total-compra">
-          <h2>Total de compra: ${total}</h2>
+      <div className="total-compra">
+        <h2>Total de compra: ${total}</h2>
 
-          <div className="botones-acciones">
-            <button
-              onClick={handleVaciarCarrito}
-              disabled={pedidoLista.length === 0}
-              className="btn-vaciar"
-            >
-              Vaciar carrito
-            </button>
+        <div className="botones-acciones">
+          <button
+            onClick={handleVaciarCarrito}
+            disabled={pedidoLista.length === 0}
+            className="btn-vaciar"
+          >
+            Vaciar carrito
+          </button>
 
-            <button
-              onClick={() => navigate('/pedido')}
-              disabled={pedidoLista.length === 0}
-              className="btn-confirmar"
-            >
-              Confirmar pedido
-            </button>
+          <button
+            onClick={() => navigate('/pedido')}
+            disabled={pedidoLista.length === 0}
+            className="btn-confirmar"
+          >
+            Confirmar pedido
+          </button>
 
-            <button
-              onClick={() => navigate('/')}
-              className="btn-seguir"
-            >
-              Seguir comprando
-            </button>
-          </div>
+          <button
+            onClick={() => navigate('/')}
+            className="btn-seguir"
+          >
+            Seguir comprando
+          </button>
         </div>
       </div>
-    </main>
-  );
+    </div>
+  </main>
+);
+
 }
 
 export default PizzaCard;
