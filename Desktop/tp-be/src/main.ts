@@ -11,7 +11,7 @@ async function bootstrap() {
       "http://localhost:5173"               // 👈 para desarrollo local
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // ponelo en true si usás cookies o auth
+    credentials: true,
   });
 
   app.useGlobalPipes(
