@@ -26,7 +26,7 @@ header {
 .menu-derecha li a {
   text-decoration: none;
   font-family: 'Times New Roman', Times, serif;
-  font-size: clamp(1.8rem, 2vw, 1.6rem);
+  font-size: clamp(1.4rem, 2vw, 1.6rem);
   font-weight: bold;
   color: rgb(251, 255, 0);
   padding: 0.5rem 1rem;
@@ -46,12 +46,14 @@ header {
   font-size: 2rem;
   color: rgb(251, 255, 0);
   cursor: pointer;
+  
 }
 
-/* 📱 Móviles y tablets (hasta 991px) */
+/* 📱 Vista móvil (hasta tablets verticales) */
+
 @media (max-width: 991px) {
   .menu-toggle {
-    display: block; /* mostrar hamburguesa */
+    display: block; /* mostrar hamburguesa en móviles */
   }
 
   .menu-izquierda,
@@ -60,7 +62,7 @@ header {
     width: 100%;
     display: none; /* ocultar por defecto */
     margin-top: 1rem;
-    background-color: rgba(15, 15, 15, 0.9);
+    background-color: rgba(15, 15, 15, 0.5); /* 👈 más transparente */
     padding: 1rem;
     border-radius: 8px;
     animation: slideDown 0.3s ease forwards;
@@ -79,40 +81,55 @@ header {
   }
 }
 
-/* Animación suave */
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
-/* 💻 Tablets horizontales o notebooks pequeñas (992px – 1199px) */
+/* 💻 Tablets horizontales y desktop estándar */
 @media (min-width: 992px) and (max-width: 1199px) {
-  .menu-izquierda li a,
-  .menu-derecha li a {
-    font-size: 1.2rem;
-  }
-}
-
-/* 🖥️ Notebooks o desktops estándar (1200px – 1599px) */
-@media (min-width: 1200px) and (max-width: 1599px) {
-  .menu-izquierda li a,
-  .menu-derecha li a {
-    font-size: 1.3rem;
-  }
-}
-
-/* 🖥️ Monitores grandes (1600px – 1999px) */
-@media (min-width: 1600px) and (max-width: 1999px) {
   .menu-izquierda li a,
   .menu-derecha li a {
     font-size: 1.4rem;
   }
 }
 
-/* 🖥️ Pantallas ultra anchas o 4K (2000px en adelante) */
-@media (min-width: 2000px) {
+/* 🖥️ Desktop grande (>=1200px) */
+@media (min-width: 1200px) {
   .menu-izquierda li a,
   .menu-derecha li a {
     font-size: 1.6rem;
   }
+}
+
+/* Animación suave */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón de cerrar sesión */
+.logout-btn {
+  background-color: #ff7300;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #e06600;
+}
+
+.logout-btn:active {
+  background-color: #cc5a00;
+}
+
+/* Texto de bienvenida */
+.bienvenida {
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  color: rgb(251, 255, 0);
+  margin-right: 10px;
+  font-size: 16px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }

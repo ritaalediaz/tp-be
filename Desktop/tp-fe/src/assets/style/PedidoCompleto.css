@@ -1,11 +1,10 @@
-/* === Estilos base de tu layout === */
+/* Contenedor principal del pedido */
 .pizza-contenedor {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr); 
-  gap: 2.5rem;
+  display: flex;              /* un solo card centrado */
+  justify-content: center;
   padding: 2rem;
-  margin-right: 1500px;
-  max-width: 900px;
+  margin: 0 auto;             /* centrado automático */
+  max-width: 900px;           /* ancho razonable */
 }
 
 .tarjeta-pizza {
@@ -13,6 +12,8 @@
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;           /* límite para que no se estire demasiado */
 }
 
 .btn-agregar {
@@ -24,16 +25,16 @@
   cursor: pointer;
 }
 
-/* === Adaptación para SweetAlert2 === */
+/* === SweetAlert2 === */
 .swal2-popup {
-  background: #fcf2cd; /* mismo fondo que tus tarjetas */
+  background: #fcf2cd;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   font-family: 'Arial', sans-serif;
 }
 
 .swal2-title {
-  color: #e63946; /* mismo rojo que tu botón */
+  color: #e63946;
   font-size: 1.6rem;
   font-weight: bold;
 }
@@ -44,7 +45,7 @@
 }
 
 .swal2-confirm {
-  background-color: #e63946 !important; /* botón confirmación igual que .btn-agregar */
+  background-color: #e63946 !important;
   color: white !important;
   border-radius: 5px !important;
   padding: 0.6rem 1.2rem !important;
@@ -57,10 +58,14 @@
   padding: 0.6rem 1.2rem !important;
 }
 
-/* === Responsivo igual que tus botones === */
+/* Responsivo */
 @media (max-width: 600px) {
   .pizza-contenedor {
-    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
+
+  .tarjeta-pizza {
+    max-width: 100%;
   }
 
   .btn-agregar,
@@ -68,11 +73,5 @@
   .swal2-cancel {
     width: 100%;
     text-align: center;
-  }
-}
-
-@media (max-width: 400px) {
-  .pizza-contenedor {
-    grid-template-columns: 1fr;
   }
 }

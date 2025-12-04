@@ -13,7 +13,7 @@ function RegisterForm() {
   const registrarUsuario = async () => {
     if (usuario && correo && clave) {
       try {
-        await axios.post('http://localhost:3000/clientes', {
+        await axios.post('https://tp-be.onrender.com/clientes', {
           nombre_usuario: usuario.trim(),
           email: correo,
           contraseña: clave,

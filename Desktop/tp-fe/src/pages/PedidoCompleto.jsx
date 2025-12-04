@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PedidoContext } from '../context/PedidoContext';
 import Swal from 'sweetalert2';
@@ -10,89 +10,83 @@ function PedidoCompleto() {
   const [envio, setEnvio] = useState('');
   const [direccion, setDireccion] = useState('');
   const [pedidoEnviado, setPedidoEnviado] = useState(false);
-  const navigate = useNavigate();
 
+  // Estados adicionales para pago
+  const [numeroTarjeta, setNumeroTarjeta] = useState('');
+  const [vencimiento, setVencimiento] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [comprobanteTransferencia, setComprobanteTransferencia] = useState('');
+
+  const navigate = useNavigate();
   const totalFinal = pedidoLista.reduce((acc, pizza) => acc + pizza.subtotal, 0);
 
   const confirmarPedido = async () => {
-    if (!pago || !envio || !direccion) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Campos incompletos',
-        text: 'Completá todos los campos antes de confirmar tu pedido',
-        confirmButtonColor: '#3085d6',
-      });
+    if (!pago || !envio) {
+      Swal.fire({ icon: 'warning', title: 'Campos incompletos', text: 'Seleccioná pago y envío' });
       return;
     }
 
-    const nombre_usuario = 'rita123'; // Reemplazalo si lo tenés en contexto
+    // Validaciones según medio de pago
+    if (pago === "Tarjeta" && (!numeroTarjeta || !vencimiento || !cvv)) {
+      Swal.fire({ icon: 'warning', title: 'Datos incompletos', text: 'Completá todos los datos de la tarjeta' });
+      return;
+    }
+
+    if (pago === "Transferencia" && !comprobanteTransferencia) {
+      Swal.fire({ icon: 'warning', title: 'Falta comprobante', text: 'Ingresá el número de comprobante de la transferencia' });
+      return;
+    }
+
+    // Validar dirección si corresponde
+    if ((envio === "Envío a domicilio" || envio === "Envío express") && !direccion) {
+      Swal.fire({ icon: 'warning', title: 'Falta dirección', text: 'Ingresá tu dirección de entrega' });
+      return;
+    }
+
+    const cliente = JSON.parse(localStorage.getItem("cliente"));
+    if (!cliente) {
+      Swal.fire({ icon: 'error', title: 'Debes iniciar sesión', text: 'Por favor inicia sesión para confirmar tu pedido' });
+      navigate("/iniciar-sesion");
+      return;
+    }
 
     const pedidoBase = {
       monto: totalFinal,
-      direccion_envio: direccion,
       cantidad: pedidoLista.length,
-      fecha: new Date(),
-      nombre_usuario,
+      fecha: new Date().toISOString(),
+      cliente_id: cliente.id,
       forma_envio: envio,
-      medio_pago: pago
+      medio_pago: pago,
+      direccion_envio: direccion || ""
     };
 
-    console.log('📦 Pedido a enviar:', pedidoBase);
-    console.log('🧾 Carrito actual:', pedidoLista);
-
-    const pizzasSinId = pedidoLista.filter(p => !p.id);
-    if (pizzasSinId.length > 0) {
-      console.error("❌ Hay pizzas sin id en el carrito:", pizzasSinId);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error en el carrito',
-        text: 'Alguna pizza no tiene un ID válido. Revisá la carga de pizzas personalizadas.',
-        confirmButtonColor: '#d33',
-      });
-      return;
-    }
-
-    try {
-      const resPedido = await fetch('http://localhost:3000/pedidos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pedidoBase)
-      });
+  try {
+  const resPedido = await fetch('https://tp-be.onrender.com/pedidos', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(pedidoBase)
+  });
 
       if (!resPedido.ok) throw new Error('Error al crear el pedido');
       const pedidoCreado = await resPedido.json();
       const pedidoId = pedidoCreado.id;
 
-      console.log('✅ Pedido creado con ID:', pedidoId);
-
       for (const pizza of pedidoLista) {
         const detalle = {
-          id_pedido: pedidoId,
-          id_pizza: pizza.id,
+          pedidoId,
           cantidad: pizza.cantidad,
-          subtotal: pizza.subtotal,
-          pizza: { // 👈 añadimos el objeto pizza completo
-            id: pizza.id,
-            nombre: pizza.nombre,
-            precio: pizza.precio,
-            masa: pizza.masa || null,
-            salsa: pizza.salsa || null,
-            ingredientes: pizza.toppings || []
-          }
+          ...(pizza.tipo === "personalizada"
+            ? { pizzaPersonalizadaId: pizza.id }
+            : { pizzaId: pizza.id })
         };
 
-        console.log('➡️ Enviando detalle:', detalle);
+       const resDetalle = await fetch('https://tp-be.onrender.com/detalle-pedido', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(detalle)
+});
 
-        const resDetalle = await fetch('http://localhost:3000/detalle-pedido', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(detalle)
-        });
-
-        if (!resDetalle.ok) {
-          console.error('❌ Error al guardar detalle:', await resDetalle.text());
-          throw new Error('Error al guardar detalle');
-        }
+        if (!resDetalle.ok) throw new Error('Error al guardar detalle');
       }
 
       setPedido(pedidoBase);
@@ -103,37 +97,21 @@ function PedidoCompleto() {
         icon: 'success',
         title: '¡Pedido confirmado!',
         text: 'Tu pedido está en preparación 🍕',
-        confirmButtonColor: '#3085d6',
-      });
+        confirmButtonText: 'Volver al inicio'
+      }).then(() => navigate('/'));
 
     } catch (error) {
       console.error('🚨 Error en confirmarPedido:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Hubo un problema al confirmar el pedido',
-        confirmButtonColor: '#d33',
-      });
+      Swal.fire({ icon: 'error', title: 'Error', text: 'Hubo un problema al confirmar el pedido' });
     }
   };
 
   return (
     <div className="pizza-contenedor">
       <div className="tarjeta-pizza">
-        {pedidoEnviado ? (
-          <>
-            <h2>🎉 ¡Pedido confirmado!</h2>
-            <p>Has elegido pagar con <strong>{pago}</strong> y recibir tu pedido por <strong>{envio}</strong>.</p>
-            <p>Dirección: <strong>{direccion}</strong></p>
-            <p>Gracias por tu compra. Tu pedido está en preparación 🍕</p>
-            <button className="btn-agregar" onClick={() => navigate('/home')}>
-              Volver al inicio
-            </button>
-          </>
-        ) : (
+        {!pedidoEnviado ? (
           <>
             <h2>🛒 Tu pedido</h2>
-
             {pedidoLista.length === 0 ? (
               <p>No hay pizzas en el carrito</p>
             ) : (
@@ -142,37 +120,37 @@ function PedidoCompleto() {
                   {pedidoLista.map((pizza, index) => (
                     <li key={index}>
                       <strong>{pizza.nombre}</strong> - ${pizza.precio} x {pizza.cantidad} = ${pizza.subtotal}<br />
-                      {pizza.masa && <span>Masa: {pizza.masa}<br /></span>}
-                      {pizza.salsa && <span>Salsa: {pizza.salsa}<br /></span>}
-                      {pizza.toppings && <span>Toppings: {pizza.toppings.join(', ')}<br /></span>}
+                      <span>Masa:</span> {pizza.masa}<br />
+                      <span>Salsa:</span> {pizza.salsa}<br />
+                      <span>Toppings:</span> {pizza.toppings?.join(', ')}
                     </li>
                   ))}
                 </ul>
 
                 <p className="precio">💰 Total: ${totalFinal}</p>
 
-                {/* Campos de dirección, pago y envío */}
-                <section>
-                  <h3>📍 Dirección de envío</h3>
-                  <input
-                    type="text"
-                    placeholder="Ej: Av. Siempre Viva 123"
-                    value={direccion}
-                    onChange={(e) => setDireccion(e.target.value)}
-                  />
-                </section>
-
+                {/* Medio de pago */}
                 <section>
                   <h3>💳 Medio de pago</h3>
                   <label>
                     <input
                       type="radio"
                       name="pago"
-                      value="Tarjeta de crédito"
-                      checked={pago === 'Tarjeta de crédito'}
+                      value="Tarjeta"
+                      checked={pago === 'Tarjeta'}
                       onChange={(e) => setPago(e.target.value)}
                     />
-                    Tarjeta de crédito
+                    Tarjeta de crédito / débito
+                  </label><br />
+                  <label>
+                    <input
+                      type="radio"
+                      name="pago"
+                      value="Transferencia"
+                      checked={pago === 'Transferencia'}
+                      onChange={(e) => setPago(e.target.value)}
+                    />
+                    Transferencia bancaria
                   </label><br />
                   <label>
                     <input
@@ -183,19 +161,51 @@ function PedidoCompleto() {
                       onChange={(e) => setPago(e.target.value)}
                     />
                     Efectivo
-                  </label><br />
-                  <label>
-                    <input
-                      type="radio"
-                      name="pago"
-                      value="Transferencia"
-                      checked={pago === 'Transferencia'}
-                      onChange={(e) => setPago(e.target.value)}
-                    />
-                    Transferencia
                   </label>
+
+                  {/* Campos dinámicos según el pago */}
+                  {pago === "Tarjeta" && (
+                    <div style={{ marginTop: "10px" }}>
+                      <input
+                        type="text"
+                        placeholder="Número de tarjeta"
+                        value={numeroTarjeta}
+                        onChange={(e) => setNumeroTarjeta(e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Fecha de vencimiento (MM/AA)"
+                        value={vencimiento}
+                        onChange={(e) => setVencimiento(e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        placeholder="CVV"
+                        value={cvv}
+                        onChange={(e) => setCvv(e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {pago === "Transferencia" && (
+                    <div style={{ marginTop: "10px" }}>
+                      <p>Alias: <strong>pizza-conmigo</strong></p>
+                      <p>CBU: <strong>1234567890123456789012</strong></p>
+                      <input
+                        type="text"
+                        placeholder="Número de comprobante"
+                        value={comprobanteTransferencia}
+                        onChange={(e) => setComprobanteTransferencia(e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {pago === "Efectivo" && (
+                    <p style={{ marginTop: "10px" }}>💵 Pagás al recibir tu pedido.</p>
+                  )}
                 </section>
 
+                {/* Forma de envío */}
                 <section>
                   <h3>🚚 Forma de envío</h3>
                   <label>
@@ -228,6 +238,25 @@ function PedidoCompleto() {
                     />
                     Envío express
                   </label>
+
+                  {/* Campo dinámico de dirección */}
+                  {(envio === "Envío a domicilio" || envio === "Envío express") && (
+                    <div style={{ marginTop: "10px" }}>
+                      <input
+                        type="text"
+                        placeholder="Dirección de entrega"
+                        value={direccion}
+                        onChange={(e) => setDireccion(e.target.value)}
+                      />
+                    </div>
+                  )}
+
+                  {/* Aviso para envío express */}
+                  {envio === "Envío express" && (
+                    <p style={{ color: "red", marginTop: "10px" }}>
+                      ⚡ El envío express tiene un costo adicional y llega en menos de 30 minutos.
+                    </p>
+                  )}
                 </section>
 
                 <button className="btn-agregar" onClick={confirmarPedido}>
@@ -235,6 +264,18 @@ function PedidoCompleto() {
                 </button>
               </>
             )}
+          </>
+        ) : (
+          <>
+            <h2>🎉 ¡Pedido confirmado!</h2>
+            <p>
+              Has elegido pagar con <strong>{pago}</strong> y recibir tu pedido por <strong>{envio}</strong>.
+            </p>
+            {direccion && <p>Será entregado en: <strong>{direccion}</strong></p>}
+            <p>Gracias por tu compra. Tu pedido está en preparación 🍕</p>
+            <button className="btn-agregar" onClick={() => navigate('/')}>
+              Volver al inicio
+            </button>
           </>
         )}
       </div>

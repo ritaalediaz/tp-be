@@ -46,11 +46,11 @@ function PersonalizarPizza() {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/personalizar-pizzas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pizzaPersonalizada)
-      });
+  const res = await fetch('https://tp-be.onrender.com/personalizar-pizzas', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(pizzaPersonalizada)
+  });
 
       if (!res.ok) {
         throw new Error('Error al guardar la pizza');

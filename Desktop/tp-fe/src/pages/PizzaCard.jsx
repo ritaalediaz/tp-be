@@ -1,17 +1,33 @@
-import { useContext } from 'react';
+
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { pizzas } from '../data/pizzas';
+import axios from 'axios';
 import PizzaCardItem from '../components/PizzaCardItem';
 import { PedidoContext } from '../context/PedidoContext';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // 👈 importamos SweetAlert2
 import '../assets/style/PizzaCard.css';
 
 function PizzaCard() {
+  const [total, setTotal] = useState(0);
+  const [pizzas, setPizzas] = useState([]); // ahora vienen del BE
   const { pedidoLista, setPedidoLista } = useContext(PedidoContext);
   const navigate = useNavigate();
 
-  // 👇 Calculamos el total directamente desde pedidoLista
-  const total = pedidoLista.reduce((acc, pizza) => acc + pizza.subtotal, 0);
+  // 🔗 Traer pizzas del backend en Render
+  useEffect(() => {
+    axios.get("https://tp-be.onrender.com/pizzas") // ✅ URL pública
+      .then((res) => {
+        setPizzas(res.data);
+      })
+      .catch((err) => {
+        console.error("Error al cargar pizzas:", err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudieron cargar las pizzas desde el servidor',
+        });
+      });
+  }, []);
 
   const handleAgregar = (pizza, cantidad) => {
     const cantidadNum = Number(cantidad);
@@ -21,12 +37,12 @@ function PizzaCard() {
         icon: 'warning',
         title: 'Cantidad inválida',
         text: 'Por favor, ingresá una cantidad válida.',
-        confirmButtonColor: '#f36f17',
       });
       return;
     }
 
     const subtotal = pizza.precio * cantidadNum;
+    setTotal(prev => prev + subtotal);
 
     const pizzaConCantidad = {
       ...pizza,
@@ -38,75 +54,80 @@ function PizzaCard() {
 
     Swal.fire({
       icon: 'success',
-      title: '¡Agregado!',
-      text: `Agregaste ${cantidad} ${pizza.nombre} al carrito`,
-      confirmButtonColor: '#50ad58',
+      title: 'Pizza agregada',
+      text: `Agregaste ${cantidad} ${pizza.nombre} al carrito 🍕`,
+      timer: 1500,
+      showConfirmButton: false
     });
   };
 
   const handleVaciarCarrito = () => {
     Swal.fire({
-      title: '¿Vaciar carrito?',
-      text: '¿Estás segura de que querés vaciar el carrito?',
-      icon: 'question',
+      title: '¿Estás segura?',
+      text: "Se vaciará todo el carrito",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#ff0800',
-      cancelButtonColor: '#999',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
       confirmButtonText: 'Sí, vaciar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         setPedidoLista([]);
+        setTotal(0);
         Swal.fire({
           icon: 'success',
-          title: 'Carrito vaciado',
-          confirmButtonColor: '#ff4213',
+          title: 'Carrito vacío',
+          timer: 1200,
+          showConfirmButton: false
         });
       }
     });
   };
 
   return (
-    <>
-      <div className="pizza-contenedor">
-        {pizzas.map(pizza => (
-          <PizzaCardItem
-            key={pizza.id}
-            pizza={pizza}
-            onAgregar={handleAgregar}
-          />
-        ))}
-      </div>
+    <main className="page-pizzas">
+      <div className="pizzas-wrapper">
+        <div className="pizza-contenedor3">
+          {pizzas.map(pizza => (
+            <PizzaCardItem
+              key={pizza.id}
+              pizza={pizza}
+              onAgregar={handleAgregar}
+            />
+          ))}
+        </div>
 
-      <div className="total-compra">
-        <h2>Total de compra: ${total}</h2>
+        <div className="total-compra">
+          <h2>Total de compra: ${total}</h2>
 
-        <div className="botones-acciones">
-          <button
-            onClick={handleVaciarCarrito}
-            disabled={pedidoLista.length === 0}
-            className="btn-vaciar"
-          >
-            Vaciar carrito
-          </button>
+          <div className="botones-acciones">
+            <button
+              onClick={handleVaciarCarrito}
+              disabled={pedidoLista.length === 0}
+              className="btn-vaciar"
+            >
+              Vaciar carrito
+            </button>
 
-          <button
-            onClick={() => navigate('/pedido')}
-            disabled={pedidoLista.length === 0}
-            className="btn-confirmar"
-          >
-            Confirmar pedido
-          </button>
+            <button
+              onClick={() => navigate('/pedido')}
+              disabled={pedidoLista.length === 0}
+              className="btn-confirmar"
+            >
+              Confirmar pedido
+            </button>
 
-          <button
-            onClick={() => navigate('/')}
-            className="btn-seguir"
-          >
-            Seguir comprando
-          </button>
+            <button
+              onClick={() => navigate('/')}
+              className="btn-seguir"
+            >
+              Seguir comprando
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }
 
