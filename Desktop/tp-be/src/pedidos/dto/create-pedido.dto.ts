@@ -1,5 +1,5 @@
 import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { CreateClienteDto } from 'src/clientes/dto/create-cliente.dto';
+import { CreateClienteDto } from '../../clientes/dto/create-cliente.dto';
 import { Type } from 'class-transformer';
 export class CreatePedidoDto extends CreateClienteDto {
   @IsNotEmpty()

@@ -13,14 +13,14 @@ import { PersonalizarPizzasModule } from './personalizar-pizzas/personalizar-piz
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.MYSQL_HOST,
-      port: parseInt(process.env.MYSQL_PORT ?? '3306'),
-      username: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DB,
+      type: 'mysql', // usa mysql2 automáticamente
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT ?? '3306', 10),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true, // ⚠️ solo la primera vez para que cree tablas, luego pasalo a false
+      synchronize: true, // ⚠️ solo la primera vez para crear tablas, luego pasalo a false
     }),
     PedidosModule,
     PagosModule,
