@@ -1,9 +1,10 @@
-
 .pizza-contenedor1 {
   display: flex;
   justify-content: center;
-  padding: 80px 20px;
+  align-items: center;   /* 👉 centra también verticalmente */
+  padding: 40px 20px;
   background-color: #f5f5f5;
+  margin-right: 100px;
 }
 
 .tarjeta-pizza1 {
@@ -12,8 +13,9 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  max-width: 1200px;
+  max-width: 800px;   /* 👉 más compacto y centrado */
   width: 100%;
+  margin: 0 auto;     /* 👉 asegura centrado dentro del flex */
 }
 
 .tarjeta-pizza1 h2 {
@@ -27,7 +29,7 @@
   width: 100%;
   padding: 10px 14px;
   font-size: 16px;
-  border: 2px solid #777070;
+  border: 2px solid #575353;
   border-radius: 8px;
   outline: none;
   transition: border-color 0.3s;
@@ -42,7 +44,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: space-between;
+  justify-content: center;   /* en vez de space-between */
   background-color: #ffffff;
   padding: 20px 0;
 }
