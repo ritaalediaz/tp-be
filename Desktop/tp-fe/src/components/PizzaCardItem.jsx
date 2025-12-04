@@ -1,27 +1,31 @@
 import { useState } from 'react';
-import Swal from 'sweetalert2'; // 👈 importamos SweetAlert2
+import Swal from 'sweetalert2';
 
-// PizzaCardItem: representa una sola tarjeta de pizza
-function PizzaCardItem({ pizza, onAgregar }) { 
+function PizzaCardItem({ pizza, onAgregar }) {
   const [cantidad, setCantidad] = useState(0);
 
   const handleClick = () => {
     if (cantidad > 0) {
       onAgregar(pizza, cantidad);
-      setCantidad(0); // opcional: reinicia el input
+      setCantidad(0);
     } else {
       Swal.fire({
         icon: 'warning',
         title: 'Cantidad inválida',
         text: 'Seleccioná una cantidad válida antes de agregar al carrito',
-        confirmButtonColor: '#f36f17', // mismo estilo que tus botones
+        confirmButtonColor: '#f36f17',
       });
     }
   };
 
   return (
     <div className="tarjeta-pizza">
-      <img src={pizza.imagen} alt={`Pizza ${pizza.nombre}`} className="pizza-imagen" />
+      <img
+        src={`/imagenes/${pizza.imagen || 'default.png'}`}
+        alt={`Pizza ${pizza.nombre}`}
+        className="pizza-imagen"
+        onError={(e) => (e.currentTarget.src = '/imagenes/default.png')}
+      />
       <h3>{pizza.nombre}</h3>
       <p className="precio">${pizza.precio}</p>
       <div className="cantidad">
