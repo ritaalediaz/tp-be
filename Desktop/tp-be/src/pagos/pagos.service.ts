@@ -43,7 +43,7 @@ export class PagosService {
     return await this.pagoRepository.find();
   }
 
-  async findOne(id: number): Promise<Pago> { // 👈 ahora devuelve solo Pago
+  async findOne(id: number): Promise<Pago> { // 👈 devuelve solo Pago
     const pago = await this.pagoRepository.findOneBy({ id });
     if (!pago) {
       throw new NotFoundException('Pago no encontrado');
@@ -51,11 +51,16 @@ export class PagosService {
     return pago;
   }
 
-  update(id: number, updatePagoDto: UpdatePagoDto) {
-    return `This action updates a #${id} pago`;
+  async update(id: number, updatePagoDto: UpdatePagoDto): Promise<Pago> {
+    const pago = await this.pagoRepository.findOne({ where: { id } });
+    if (!pago) {
+      throw new NotFoundException('Pago no encontrado');
+    }
+    Object.assign(pago, updatePagoDto);
+    return await this.pagoRepository.save(pago);
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<void> {
     const pago = await this.pagoRepository.findOne({ where: { id } });
     if (!pago) {
       throw new NotFoundException('Pago no encontrado');

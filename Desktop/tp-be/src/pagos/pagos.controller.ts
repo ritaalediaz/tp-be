@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Query, Get, Param, Delete } from '@nestjs/common';
 import { PagosService } from './pagos.service';
 import { CreatePagoDto } from './dto/create-pago.dto';
-import { UpdatePagoDto } from './dto/update-pago.dto';
 import { Pago } from './entities/pago.entity';
 
 @Controller('pagos')
@@ -27,7 +26,7 @@ export class PagosController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id') id: number): Promise<void> {
     return this.pagosService.remove(id);
   }
 }
