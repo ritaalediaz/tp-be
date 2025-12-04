@@ -36,27 +36,7 @@
   border-radius: 8px;
 }
 
-.cantidad {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.tarjeta-pizza label {
-  font-weight: bold;
-  color: #110e0d;
-}
-
-.tarjeta-pizza input[type="number"],
-.tarjeta-pizza input[type="text"] {
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-}
-
 h3 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.5rem;
   font-weight: bold;
   color: #110e0d;
@@ -67,16 +47,14 @@ h3 {
   font-size: 1.7rem;
   font-weight: bold;
   color: #110e0d;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.ingredientes-lista {
+.descripcion {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #333;
+  margin: 15px 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: bold;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 20px 0;
 }
 
 .btn-agregar {
@@ -96,126 +74,4 @@ h3 {
 .btn-agregar:hover {
   background-color: #f37f32;
   transform: scale(1.05);
-}
-
-.total-compra {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 40px auto;
-  max-width: 600px;
-  text-align: center;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #110e0d;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.botones-acciones {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.btn-vaciar,
-.btn-confirmar,
-.btn-seguir {
-  display: inline-block;
-  margin: 10px;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.btn-vaciar {
-  background-color: #ff0800;
-  color: white;
-}
-.btn-vaciar:hover {
-  background-color: #75130f;
-  transform: scale(1.05);
-}
-
-.btn-confirmar {
-  background-color: #f36f17;
-  color: white;
-}
-.btn-confirmar:hover {
-  background-color: #db8c14;
-  transform: scale(1.05);
-}
-
-.btn-seguir {
-  background-color: #50ad58;
-  color: white;
-}
-.btn-seguir:hover {
-  background-color: #85c27c;
-  transform: scale(1.05);
-}
-
-/* === SweetAlert2 custom styles === */
-.swal2-popup {
-  background: rgba(255, 253, 253, 0.95);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.swal2-title {
-  color: #110e0d;
-  font-size: 1.6rem;
-  font-weight: bold;
-}
-
-.swal2-html-container {
-  color: #333;
-  font-size: 1rem;
-}
-
-.swal2-confirm {
-  background-color: #f36f17 !important;
-  color: white !important;
-  border-radius: 8px !important;
-  padding: 10px 20px !important;
-  font-weight: bold !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.swal2-cancel {
-  background-color: #999 !important;
-  color: white !important;
-  border-radius: 8px !important;
-  padding: 10px 20px !important;
-  font-weight: bold !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.swal2-confirm:hover,
-.swal2-cancel:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease-in-out;
-}
-
-@media (min-width: 1200px) {
-  .pizza-contenedor {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .btn-vaciar,
-  .btn-confirmar,
-  .btn-seguir {
-    width: 100%;
-    margin: 10px 0;
-  }
 }

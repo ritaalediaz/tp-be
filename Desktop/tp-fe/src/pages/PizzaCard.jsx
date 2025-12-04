@@ -1,21 +1,20 @@
-
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PizzaCardItem from '../components/PizzaCardItem';
 import { PedidoContext } from '../context/PedidoContext';
-import Swal from 'sweetalert2'; // 👈 importamos SweetAlert2
+import Swal from 'sweetalert2';
 import '../assets/style/PizzaCard.css';
 
 function PizzaCard() {
   const [total, setTotal] = useState(0);
-  const [pizzas, setPizzas] = useState([]); // ahora vienen del BE
+  const [pizzas, setPizzas] = useState([]);
   const { pedidoLista, setPedidoLista } = useContext(PedidoContext);
   const navigate = useNavigate();
 
-  // 🔗 Traer pizzas del backend en Render
+  // 🔗 Traer pizzas del backend
   useEffect(() => {
-    axios.get("https://tp-be.onrender.com/pizzas") // ✅ URL pública
+    axios.get("https://tp-be.onrender.com/pizzas")
       .then((res) => {
         setPizzas(res.data);
       })
@@ -42,15 +41,19 @@ function PizzaCard() {
     }
 
     const subtotal = pizza.precio * cantidadNum;
+
+    // ✅ Si la pizza ya está en el carrito, actualizamos cantidad y subtotal
+    setPedidoLista(prev => {
+      const existente = prev.find(p => p.id === pizza.id);
+      if (existente) {
+        existente.cantidad += cantidadNum;
+        existente.subtotal += subtotal;
+        return [...prev];
+      }
+      return [...prev, { ...pizza, cantidad: cantidadNum, subtotal }];
+    });
+
     setTotal(prev => prev + subtotal);
-
-    const pizzaConCantidad = {
-      ...pizza,
-      cantidad: cantidadNum,
-      subtotal
-    };
-
-    setPedidoLista(prev => [...prev, pizzaConCantidad]);
 
     Swal.fire({
       icon: 'success',
@@ -88,7 +91,7 @@ function PizzaCard() {
   return (
     <main className="page-pizzas">
       <div className="pizzas-wrapper">
-        <div className="pizza-contenedor3">
+        <div className="pizza-contenedor"> {/* ✅ corregido */}
           {pizzas.map(pizza => (
             <PizzaCardItem
               key={pizza.id}

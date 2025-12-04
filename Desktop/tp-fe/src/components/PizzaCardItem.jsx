@@ -26,8 +26,15 @@ function PizzaCardItem({ pizza, onAgregar }) {
         className="pizza-imagen"
         onError={(e) => (e.currentTarget.src = '/imagenes/default.png')}
       />
+
       <h3>{pizza.nombre}</h3>
       <p className="precio">${pizza.precio}</p>
+
+      {/* ✅ Mostrar descripción si existe */}
+      {pizza.descripcion && (
+        <p className="descripcion">{pizza.descripcion}</p>
+      )}
+
       <div className="cantidad">
         <label htmlFor={`cant-${pizza.id}`}>Cantidad:</label>
         <input
@@ -38,6 +45,7 @@ function PizzaCardItem({ pizza, onAgregar }) {
           onChange={(e) => setCantidad(Number(e.target.value))}
         />
       </div>
+
       <button className="btn-agregar" onClick={handleClick}>
         Agregar al carrito
       </button>
