@@ -10,7 +10,7 @@ export class PagosController {
   @Post()
   async create(
     @Body() createPagoDto: CreatePagoDto,
-    @Query('id_pedido') id_pedido: number, // 👈 recibe el id del pedido
+    @Query('id_pedido') id_pedido: number,
   ): Promise<Pago> {
     return this.pagosService.create(createPagoDto, id_pedido);
   }

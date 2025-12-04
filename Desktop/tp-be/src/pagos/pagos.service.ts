@@ -43,7 +43,7 @@ export class PagosService {
     return await this.pagoRepository.find();
   }
 
-  async findOne(id: number): Promise<Pago> { // 👈 devuelve solo Pago
+  async findOne(id: number): Promise<Pago> {
     const pago = await this.pagoRepository.findOneBy({ id });
     if (!pago) {
       throw new NotFoundException('Pago no encontrado');
@@ -68,3 +68,4 @@ export class PagosService {
     await this.pagoRepository.remove(pago);
   }
 }
+
