@@ -60,7 +60,7 @@ function PedidoCompleto() {
       clienteId: Number(cliente.id),
       formaEnvio: envio,
       medioPago: pago,
-      direccionEnvio: direccion || ""
+      direccionEnvio: envio === "Retiro en local" ? "Retiro en local" : direccion
     };
 
     console.log("📦 Pedido a enviar:", JSON.stringify(pedidoBase, null, 2));
