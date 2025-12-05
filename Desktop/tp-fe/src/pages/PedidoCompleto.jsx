@@ -64,51 +64,53 @@ const pedidoBase = {
 
 console.log("📦 Pedido a enviar:", pedidoBase);
 
+
   try {
-  const resPedido = await fetch('https://tp-be.onrender.com/pedidos', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(pedidoBase)
-  });
+    const resPedido = await fetch('https://tp-be.onrender.com/pedidos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pedidoBase)
+    });
 
-      if (!resPedido.ok) throw new Error('Error al crear el pedido');
-      const pedidoCreado = await resPedido.json();
-      const pedidoId = pedidoCreado.id;
+    if (!resPedido.ok) throw new Error('Error al crear el pedido');
+    const pedidoCreado = await resPedido.json();
+    const pedidoId = pedidoCreado.id;
 
-      for (const pizza of pedidoLista) {
-        const detalle = {
-          pedidoId,
-          cantidad: pizza.cantidad,
-          ...(pizza.tipo === "personalizada"
-            ? { pizzaPersonalizadaId: pizza.id }
-            : { pizzaId: pizza.id })
-        };
+    // Guardar detalles
+    for (const pizza of pedidoLista) {
+      const detalle = {
+        id_pedido: pedidoId,              // ✅ coincide con tu DTO
+        cantidad: pizza.cantidad,
+        id_pizza: Number(pizza.id)        // ✅ coincide con tu DTO
+      };
 
-       const resDetalle = await fetch('https://tp-be.onrender.com/detalle-pedido', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(detalle)
-});
+      console.log("🧾 Detalle a enviar:", detalle);
 
-        if (!resDetalle.ok) throw new Error('Error al guardar detalle');
-      }
+      const resDetalle = await fetch('https://tp-be.onrender.com/detalle-pedido', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(detalle)
+      });
 
-      setPedido(pedidoBase);
-      setPedidoLista([]);
-      setPedidoEnviado(true);
-
-      Swal.fire({
-        icon: 'success',
-        title: '¡Pedido confirmado!',
-        text: 'Tu pedido está en preparación 🍕',
-        confirmButtonText: 'Volver al inicio'
-      }).then(() => navigate('/'));
-
-    } catch (error) {
-      console.error('🚨 Error en confirmarPedido:', error);
-      Swal.fire({ icon: 'error', title: 'Error', text: 'Hubo un problema al confirmar el pedido' });
+      if (!resDetalle.ok) throw new Error('Error al guardar detalle');
     }
-  };
+
+    setPedido(pedidoBase);
+    setPedidoLista([]);
+    setPedidoEnviado(true);
+
+    Swal.fire({
+      icon: 'success',
+      title: '¡Pedido confirmado!',
+      text: 'Tu pedido está en preparación 🍕',
+      confirmButtonText: 'Volver al inicio'
+    }).then(() => navigate('/'));
+
+  } catch (error) {
+    console.error('🚨 Error en confirmarPedido:', error);
+    Swal.fire({ icon: 'error', title: 'Error', text: 'Hubo un problema al confirmar el pedido' });
+  }
+};
 
   return (
     <div className="pizza-contenedor">
