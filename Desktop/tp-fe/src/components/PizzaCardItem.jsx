@@ -25,6 +25,7 @@ function PizzaCardItem({ pizza, onAgregar }) {
     <div className="tarjeta-pizza">
       {/* 🖼️ Imagen de la pizza */}
       <div className="imagen-contenedor">
+        {console.log("Imagen recibida:", pizza.imagen)};
         <img
           src={`/imagenes/${pizza.imagen || "default.png"}`}
           alt={pizza.nombre || "Pizza genérica"}
