@@ -21,13 +21,13 @@ export class Pedido {
   monto: number;
 
   @Column()
-  direccionEnvio: string;   // 👈 corregido
+  direccionEnvio: string; 
 
   @Column()
   cantidad: number;
 
   @Column('timestamp')
-  fecha: Date;              // 👈 corregido
+  fecha: Date; 
 
   @ManyToOne(() => Cliente, (cliente) => cliente.pedido)
   @JoinColumn()
