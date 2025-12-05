@@ -29,11 +29,11 @@ function PizzaCardItem({ pizza, onAgregar }) {
           src={`/imagenes/${pizza.imagen || "default.png"}`}
           alt={pizza.nombre || "Pizza genérica"}
           className="pizza-imagen"
+          onError={(e) => { e.currentTarget.src = "/imagenes/default.png"; }}
         />
       </div>
 
       <h3>{pizza.nombre || "Sin nombre"}</h3>
-      {/* ❌ Eliminamos la descripción */}
       
       <p className="precio">Precio: ${pizza.precio || "?"}</p>
 

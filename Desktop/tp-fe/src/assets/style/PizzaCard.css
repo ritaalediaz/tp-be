@@ -3,11 +3,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;          /* ocupa todo el ancho */
-  max-width: 2200px;    /* suficiente para 6 columnas */
+  width: 100%;          
+  max-width: 2200px;    
   margin: 0 auto;
 }
-
 
 /* === Grid de pizzas: 6 columnas fijas === */
 .pizza-contenedor3 {
@@ -17,7 +16,6 @@
   padding: 20px;
   width: 100%;
 }
-
 
 /* === Card de pizza === */
 .tarjeta-pizza {
@@ -31,17 +29,17 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   font-size: 1rem;
-  width: 100%;          /* ocupa toda la columna */
-  height: 500px;        /* más compacto */
-  max-width: none;      /* ❌ quitamos el límite de 350px */
+  width: 100%;          
+  min-height: 500px;    /* altura mínima */
+  height: auto;         /* se adapta al contenido */
   padding: 10px;
- 
 }
 
+/* === Imagen de pizza === */
 .pizza-imagen {
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  height: 220px;        /* altura fija para uniformidad */
+  object-fit: cover;    /* recorta y mantiene proporción */
   border-radius: 8px;
 }
 
@@ -193,7 +191,7 @@ h2 {
   border-radius: 8px !important;
   padding: 10px 20px !important;
   font-weight: bold !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .swal2-cancel {
@@ -202,7 +200,7 @@ h2 {
   border-radius: 8px !important;
   padding: 10px 20px !important;
   font-weight: bold !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .swal2-confirm:hover,
@@ -220,18 +218,19 @@ h2 {
   }
 
   .tarjeta-pizza {
-    height: auto;       /* que se adapte al contenido */
-    font-size: 0.9rem;  /* tipografía más chica */
+    min-height: auto;
+    height: auto;       
+    font-size: 0.9rem;  
   }
 }
 
 /* 📲 Tablets horizontales: 768–991px */
 @media (min-width: 768px) and (max-width: 991px) {
   .pizza-contenedor3 {
-    grid-template-columns: repeat(3, 1fr); /* tres columnas */
+    grid-template-columns: repeat(3, 1fr); 
   }
   .tarjeta-pizza {
-    height: 450px;
+    min-height: 450px;
     font-size: 1rem;
   }
 }
@@ -239,10 +238,10 @@ h2 {
 /* 💻 Notebooks pequeñas: 992–1199px */
 @media (min-width: 992px) and (max-width: 1199px) {
   .pizza-contenedor3 {
-    grid-template-columns: repeat(4, 1fr); /* cuatro columnas */
+    grid-template-columns: repeat(4, 1fr); 
   }
   .tarjeta-pizza {
-    height: 480px;
+    min-height: 480px;
     font-size: 1.05rem;
   }
 }
@@ -250,10 +249,10 @@ h2 {
 /* 🖥️ Desktop estándar: 1200–1599px */
 @media (min-width: 1200px) and (max-width: 1599px) {
   .pizza-contenedor3 {
-    grid-template-columns: repeat(5, 1fr); /* cinco columnas */
+    grid-template-columns: repeat(5, 1fr); 
   }
   .tarjeta-pizza {
-    height: 500px;
+    min-height: 500px;
     font-size: 1.1rem;
   }
 }
@@ -261,10 +260,10 @@ h2 {
 /* 🖥️ Monitores grandes: 1600px en adelante */
 @media (min-width: 1600px) {
   .pizza-contenedor3 {
-    grid-template-columns: repeat(6, 1fr); /* seis columnas */
+    grid-template-columns: repeat(6, 1fr); 
   }
   .tarjeta-pizza {
-    height: 520px;
+    min-height: 520px;
     font-size: 1.15rem;
   }
 }
