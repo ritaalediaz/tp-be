@@ -63,7 +63,7 @@ function PedidoCompleto() {
       direccionEnvio: direccion || ""
     };
 
-    console.log("📦 Pedido a enviar:", pedidoBase);
+    console.log("📦 Pedido a enviar:", JSON.stringify(pedidoBase, null, 2));
 
     try {
       // Crear pedido
