@@ -63,7 +63,7 @@ function PedidoCompleto() {
       direccionEnvio: envio === "Retiro en local" ? "Retiro en local" : direccion
     };
 
-    console.log("📦 Pedido a enviar:", JSON.stringify(pedidoBase, null, 2));
+   
 
     try {
       // Crear pedido
