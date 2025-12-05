@@ -1,3 +1,4 @@
+
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ingredientes } from '../data/ingredientes';
@@ -27,7 +28,7 @@ function PersonalizarPizza() {
     toppings.reduce((acc, i) => acc + i.precio, 0);
 
   const handleAgregar = async () => {
-    if (!nombrePizza || !masa || !salsa) {
+    if (!nombrePizza.trim() || !masa || !salsa) {
       Swal.fire({
         icon: 'warning',
         title: 'Campos incompletos',
@@ -37,20 +38,23 @@ function PersonalizarPizza() {
       return;
     }
 
+    // ✅ Construcción segura del objeto
     const pizzaPersonalizada = {
-      nombre: nombrePizza,
-      masa: masa.nombre,
-      salsa: salsa.nombre,
-      ingredientes: toppings.map(i => i.nombre),
-      precio: total
+      nombre: nombrePizza.trim() || "Pizza personalizada",
+      masa: masa?.nombre || "fina",
+      salsa: salsa?.nombre || "tomate",
+      ingredientes: toppings.length > 0 ? toppings.map(i => i.nombre) : ["queso"],
+      precio: Number(total) || 0,
     };
 
+    console.log("📦 Pizza personalizada a enviar:", JSON.stringify(pizzaPersonalizada, null, 2));
+
     try {
-  const res = await fetch('https://tp-be.onrender.com/personalizar-pizzas', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(pizzaPersonalizada)
-  });
+      const res = await fetch('https://tp-be.onrender.com/personalizar-pizzas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pizzaPersonalizada),
+      });
 
       if (!res.ok) {
         throw new Error('Error al guardar la pizza');
@@ -59,16 +63,15 @@ function PersonalizarPizza() {
       const pizzaGuardada = await res.json();
       console.log("🍕 Pizza guardada:", pizzaGuardada);
 
-      // 👇 Adaptamos para que siempre tenga id y estructura uniforme
       const pizzaConCarrito = {
-        id: pizzaGuardada.id,                   // ✅ importante para PedidoCompleto
+        id: pizzaGuardada.id,
         nombre: pizzaGuardada.nombre,
         precio: pizzaGuardada.precio,
         cantidad: 1,
         subtotal: pizzaGuardada.precio,
-        masa: pizzaGuardada.masa,               // usamos lo que devuelve el backend
+        masa: pizzaGuardada.masa,
         salsa: pizzaGuardada.salsa,
-        toppings: pizzaGuardada.ingredientes    // ya viene como array de strings
+        toppings: pizzaGuardada.ingredientes,
       };
 
       setPedidoLista(prev => [...prev, pizzaConCarrito]);
@@ -81,7 +84,7 @@ function PersonalizarPizza() {
       }).then(() => {
         navigate('/pedido');
       });
-      
+
     } catch (error) {
       console.error('🚨 Error al guardar pizza personalizada:', error);
       Swal.fire({
