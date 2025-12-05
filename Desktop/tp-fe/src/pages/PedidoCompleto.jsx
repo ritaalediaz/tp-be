@@ -50,15 +50,17 @@ function PedidoCompleto() {
       return;
     }
 
-    const pedidoBase = {
-      monto: totalFinal,
-      cantidad: pedidoLista.length,
-      fecha: new Date().toISOString(),
-      cliente_id: cliente.id,
-      forma_envio: envio,
-      medio_pago: pago,
-      direccion_envio: direccion || ""
-    };
+  const cantidadTotal = pedidoLista.reduce((acc, p) => acc + p.cantidad, 0);
+
+const pedidoBase = {
+  monto: totalFinal,
+  cantidad: cantidadTotal,
+  fecha: new Date().toISOString(),
+  clienteId: cliente.id,          // 👈 corregido
+  formaEnvio: envio,              // 👈 corregido
+  medioPago: pago,                // 👈 corregido
+  direccionEnvio: direccion || "" // 👈 corregido
+};
 
   try {
   const resPedido = await fetch('https://tp-be.onrender.com/pedidos', {
