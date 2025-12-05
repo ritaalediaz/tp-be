@@ -21,13 +21,13 @@ export class Pedido {
   monto: number;
 
   @Column()
-  direccion_envio: string;
+  direccionEnvio: string;   // 👈 corregido
 
   @Column()
   cantidad: number;
 
   @Column('timestamp')
-  fecha: Date;
+  fecha: Date;              // 👈 corregido
 
   @ManyToOne(() => Cliente, (cliente) => cliente.pedido)
   @JoinColumn()
@@ -44,6 +44,5 @@ export class Pedido {
   @OneToMany(() => DetallePedido, (detallePedido) => detallePedido.pedido)
   detalles: DetallePedido[];
 
-  // Si usás esta propiedad en algún lado, podés mantenerla:
   detallePedidos: any;
 }
