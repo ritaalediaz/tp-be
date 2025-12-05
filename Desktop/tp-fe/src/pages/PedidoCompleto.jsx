@@ -56,7 +56,7 @@ const pedidoBase = {
   monto: totalFinal,
   cantidad: cantidadTotal,
   fecha: new Date().toISOString(),
-  clienteId: cliente.id,          // 👈 corregido
+  clienteId: Number(cliente.id),          // 👈 corregido
   formaEnvio: envio,              // 👈 corregido
   medioPago: pago,                // 👈 corregido
   direccionEnvio: direccion || "" // 👈 corregido
