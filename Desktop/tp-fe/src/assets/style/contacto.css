@@ -1,40 +1,29 @@
-main {
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 100px);
-}
 .contenedor-formulario h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 1.6em;
+  font-size: 1.4em;
   color: #ffffff;
-  
 }
 
 .contenedor-formulario {
-  max-width: 1300px;
+  max-width: 95%;          /* base: ocupa casi todo el ancho en móviles */
   width: 100%;
-  margin-left: 550px; /* 👉 más margen hacia la derecha */
-  margin-right: auto;
-  padding: 50px;
+  margin: 40px auto;       /* centrado en móviles/tablets */
+  padding: 25px;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  gap: 30px; /* 🔽 menos espacio entre bloques */
+  gap: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
 .contenedor-formulario label {
-  margin-bottom: 20px; /* 🔽 menos espacio entre label y campo */
+  margin-bottom: 10px;
   font-weight: bold;
   color: #ffd700;
-  font-size: 1.2em; 
+  font-size: 1em; 
   display: block;
- 
-  width: 30%;
+  width: 100%;             /* en móviles ocupa todo el ancho */
 }
 
 .contenedor-formulario input[type="text"],
@@ -42,33 +31,13 @@ main {
 .contenedor-formulario input[type="tel"],
 .contenedor-formulario textarea {
   width: 100%;
-  padding: 14px 18px;
+  padding: 12px 16px;
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   color: #fff;
-  font-size: 1em;
+  font-size: 0.95em;
   box-sizing: border-box;
-}
-
-.contenedor-formulario .input,
-.contenedor-formulario textarea {
-  width: 100%;
-  padding: 34px 18px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 1em;
-  outline: none;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-  box-sizing: border-box;
-}
-
-.contenedor-formulario .input:focus,
-.contenedor-formulario textarea:focus {
-  border-color: #ffd700;
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .contenedor-formulario textarea {
@@ -80,16 +49,16 @@ main {
   background-color: #ffd700;
   color: #333;
   border: none;
-  padding: 10px 25px;
+  padding: 8px 20px;
   border-radius: 25px;
   cursor: pointer;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  width: 110px;
-  height: 45px;
+  width: 100px;
+  height: 40px;
   align-self: center;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .btn-enviar:hover {
@@ -98,194 +67,65 @@ main {
 }
 
 iframe {
-  margin-block: 50px;
-  height: 300px;
+  margin-block: 30px;
+  height: 250px;
   width: 100%;
   border: none;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Fondo del popup */
-.swal2-popup {
-  background: #fefefe;
-  border-radius: 12px;
-  padding: 25px;
-  font-family: 'Poppins', sans-serif;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-/* Título */
-.swal2-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-/* Texto */
-.swal2-html-container {
-  font-size: 1rem;
-  color: #555;
-}
-
-/* Ícono */
-.swal2-icon {
-  border: none;
-  box-shadow: none;
-}
-
-/* Botón de confirmación */
-.swal2-confirm {
-  background: linear-gradient(135deg, #ff6b6b, #ffcc25);
-  color: #fff;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-
-.swal2-confirm:hover {
-  background: red
-}
-
-/* Botón de cancelar (si lo usás) */
-.swal2-cancel {
-  background: #ddd;
-  color: #333;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-weight: 500;
-  transition: background 0.3s ease;
-}
-
-.swal2-cancel:hover {
-  background: #bbb;
-}
-/* 📱 Móviles muy pequeños: 320–374px 
-@media (max-width: 374px) {
+/* 📲 Tablets (>=768px) */
+@media (min-width: 768px) {
   .contenedor-formulario {
-    padding: 16px;
-    gap: 10px;
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .btn-enviar {
-    font-size: 0.9em;
-    width: 100%;
-    height: 38px;
-  }
-}
-
-/* 📱 Móviles pequeños: 375–479px 
-@media (min-width: 375px) and (max-width: 479px) {
-  .contenedor-formulario {
-    padding: 18px;
-    gap: 12px;
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .btn-enviar {
-    font-size: 0.95em;
-    width: 100%;
-    height: 40px;
-  }
-}
-
-/* 📱 Móviles grandes: 480–599px 
-@media (min-width: 480px) and (max-width: 599px) {
-  .contenedor-formulario {
-    padding: 20px;
-    gap: 14px;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .btn-enviar {
-    font-size: 1em;
-    padding: 8px 20px;
-    width: 100%;
-    height: 42px;
-  }
-}
-
-/* 📱 Phablets o móviles XL: 600–767px 
-@media (min-width: 600px) and (max-width: 767px) {
-  .contenedor-formulario {
-    padding: 24px;
-    gap: 16px;
-    max-width: 85%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .btn-enviar {
-    font-size: 1em;
-    width: 100%;
-    height: 44px;
-  }
-}
-
-/* 📲 Tablets verticales: 768–991px 
-@media (min-width: 768px) and (max-width: 991px) {
-  .contenedor-formulario {
-    padding: 25px;
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .btn-enviar {
-    font-size: 1em;
-    width: 100%;
-    height: 45px;
-  }
-}
-
-/* 💻 Tablets horizontales / notebooks pequeñas: 992–1199px 
-@media (min-width: 992px) and (max-width: 1199px) {
-  .contenedor-formulario {
+    max-width: 700px;
+    margin: 40px auto;   /* sigue centrado */
     padding: 30px;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
   }
-
+  .contenedor-formulario label {
+    width: 60%;          /* labels más largos en tablet */
+  }
   .btn-enviar {
-    font-size: 1.05em;
+    width: 110px;
+    height: 42px;
+    font-size: 1em;
+  }
+}
+
+/* 💻 Desktop estándar (>=1200px) */
+@media (min-width: 1200px) {
+  .contenedor-formulario {
+    max-width: 1000px;   /* más ancho */
+    margin-left: 200px;  /* desplazado a la derecha */
+    margin-right: auto;
+    padding: 35px;
+  }
+  .contenedor-formulario label {
+    width: 70%;          /* labels aún más largos */
+    font-size: 1.1em;
+  }
+  .btn-enviar {
     width: 120px;
     height: 45px;
+    font-size: 1.05em;
   }
 }
 
-/* 🖥️ Notebooks / desktops estándar: 1200–1599px 
-@media (min-width: 1200px) and (max-width: 1599px) {
+/* 🖥️ Pantallas grandes (>=1600px) */
+@media (min-width: 1600px) {
   .contenedor-formulario {
-    padding: 30px;
-    max-width: 1000px;
-    margin-left: 150px; 👉 margen hacia la derecha 
+    max-width: 1200px;   /* aún más ancho */
+    margin-left: 300px;  /* más desplazado a la derecha */
     margin-right: auto;
-
-
-/* 🖥️ Monitores grandes: 1600–1999px 
-@media (min-width: 1600px) and (max-width: 1999px) {
-  .contenedor-formulario {
-    max-width: 1200px;
-    margin-left: 250px; /* 👉 más margen 
-    margin-right: auto;
+    padding: 40px;
   }
-
-
-/* 🖥️ Pantallas ultra anchas / 4K: 2000px o más 
-@media (min-width: 2000px) {
-  .contenedor-formulario {
-    padding: 50px;
-    max-width: 1400px;
-    margin-left: 400px; /* 👉 aún más margen 
-    margin-right: auto;
+  .contenedor-formulario label {
+    width: 80%;          /* labels ocupan casi todo el ancho */
+    font-size: 1.2em;
   }
+  .btn-enviar {
+    width: 130px;
+    height: 45px;
+    font-size: 1.1em;
+  }
+}

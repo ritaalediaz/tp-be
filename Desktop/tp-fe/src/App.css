@@ -1,3 +1,7 @@
+/* === Reset y escala global === */
+html {
+  font-size: 14px; /* por defecto suele ser 16px → lo bajamos */
+}
 
 body {
   margin: 0;
@@ -7,10 +11,72 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
   transition: background-image 0.5s ease-in-out;
+  zoom:0.9; 
+
+}
+
+/* Aseguramos que todo use box-sizing para evitar desbordes */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* === Contenedor principal === */
+
+main {
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* 👉 Solo limitamos el ancho en páginas normales */
+main:not(.page-pizzas) {
+  max-width: 1000px;
+}
+
+/* 👉 Permitimos ancho completo en la página de pizzas */
+.page-pizzas {
+  max-width: 2200px;   /* 👈 suficiente para 6 columnas */
+  margin: 0 auto;
+  padding-top: 2rem;
+  
 }
 
 
+
+
+/* Página Home */
+.page-home {
+  padding-top: 0; 
+}
+
+/* Página About Us */
+.page-quienes-somos {
+  padding-top: 1rem; 
+  margin-right: 20px;
+
+}
+.page-personalizarpizzas {
+  padding-top: 1rem;
+  max-width: 1000px;   
+  margin: 0 auto;      
+}
+
+/* Página Contacto */
+.page-contacto {
+  padding-top: 1rem;
+}
+
+.page-iniciar-sesion {
+  padding-top: 1rem;
+  display: flex;             
+  justify-content:flex-end;  
+  max-width: 100%;  
+  margin-right: 20px;          
+}
+
+.page-pedido {
+  padding-top: 1rem;
+}

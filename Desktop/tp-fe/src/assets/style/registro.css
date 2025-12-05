@@ -92,7 +92,7 @@ main {
   color: #000;
 }
 
-/* Responsividad */
+/* Responsividad *
 @media (max-width: 600px) {
   .formulario {
     padding: 20px;
