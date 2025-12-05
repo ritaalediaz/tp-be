@@ -116,89 +116,88 @@ function PedidoCompleto() {
     <div className="total-compra">
       <h2>Total de compra: ${totalFinal}</h2>
 
-      {/* Opciones de pago */}
-      <div className="opciones-pago">
-        <label>
-          Medio de pago:
-          <select value={pago} onChange={(e) => setPago(e.target.value)}>
-            <option value="">Seleccionar</option>
-            <option value="Tarjeta">Tarjeta</option>
-            <option value="Transferencia">Transferencia</option>
-            <option value="Efectivo">Efectivo</option>
-          </select>
-        </label>
+{/* Opciones de pago */}
+<div className="opciones-pago">
+  <label>
+    Medio de pago:
+    <select value={pago} onChange={(e) => setPago(e.target.value)}>
+      <option value="">Seleccionar</option>
+      <option value="Tarjeta">Tarjeta</option>
+      <option value="Transferencia">Transferencia</option>
+      <option value="Efectivo">Efectivo</option>
+    </select>
+  </label>
 
-        {pago === "Tarjeta" && (
-          <div className="datos-tarjeta">
-            <input
-              type="text"
-              placeholder="Número de tarjeta"
-              value={numeroTarjeta}
-              onChange={(e) => setNumeroTarjeta(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Vencimiento (MM/AA)"
-              value={vencimiento}
-              onChange={(e) => setVencimiento(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="CVV"
-              value={cvv}
-              onChange={(e) => setCvv(e.target.value)}
-            />
-          </div>
-        )}
-
-        {pago === "Transferencia" && (
-          <div className="datos-transferencia">
-            <input
-              type="text"
-              placeholder="Comprobante de transferencia"
-              value={comprobanteTransferencia}
-              onChange={(e) => setComprobanteTransferencia(e.target.value)}
-            />
-          </div>
-        )}
-      </div>
-
-      {/* Opciones de envío */}
-      <div className="opciones-envio">
-        <label>
-          Forma de envío:
-          <select value={envio} onChange={(e) => setEnvio(e.target.value)}>
-            <option value="">Seleccionar</option>
-            <option value="Envío a domicilio">Envío a domicilio</option>
-            <option value="Envío express">Envío express</option>
-            <option value="Retiro en local">Retiro en local</option>
-          </select>
-        </label>
-
-        {(envio === "Envío a domicilio" || envio === "Envío express") && (
-          <input
-            type="text"
-            placeholder="Dirección de entrega"
-            value={direccion}
-            onChange={(e) => setDireccion(e.target.value)}
-          />
-        )}
-      </div>
-
-      {/* Botones de acción */}
-      <div className="botones-acciones">
-        <button className="btn-vaciar" onClick={() => setPedidoLista([])}>
-          Vaciar carrito
-        </button>
-        <button className="btn-confirmar" onClick={confirmarPedido}>
-          Confirmar pedido
-        </button>
-        <button className="btn-seguir" onClick={() => navigate('/')}>
-          Seguir comprando
-        </button>
-      </div>
+  {pago === "Tarjeta" && (
+    <div className="datos-tarjeta">
+      <input
+        type="text"
+        placeholder="Número de tarjeta"
+        value={numeroTarjeta}
+        onChange={(e) => setNumeroTarjeta(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Vencimiento (MM/AA)"
+        value={vencimiento}
+        onChange={(e) => setVencimiento(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="CVV"
+        value={cvv}
+        onChange={(e) => setCvv(e.target.value)}
+      />
     </div>
-  );
-}
+  )}
 
-export default PedidoCompleto;
+  {pago === "Transferencia" && (
+    <div className="datos-transferencia">
+      <input
+        type="text"
+        placeholder="Comprobante de transferencia"
+        value={comprobanteTransferencia}
+        onChange={(e) => setComprobanteTransferencia(e.target.value)}
+      />
+    </div>
+  )}
+</div>
+
+{/* Opciones de envío */}
+<div className="opciones-envio">
+  <label>
+    Forma de envío:
+    <select value={envio} onChange={(e) => setEnvio(e.target.value)}>
+      <option value="">Seleccionar</option>
+      <option value="Envío a domicilio">Envío a domicilio</option>
+      <option value="Envío express">Envío express</option>
+      <option value="Retiro en local">Retiro en local</option>
+    </select>
+  </label>
+
+  {(envio === "Envío a domicilio" || envio === "Envío express") && (
+    <input
+      type="text"
+      placeholder="Dirección de entrega"
+      value={direccion}
+      onChange={(e) => setDireccion(e.target.value)}
+    />
+  )}
+</div>
+
+{/* Botones de acción */}
+<div className="botones-acciones">
+  <button className="btn-vaciar" onClick={() => setPedidoLista([])}>
+    Vaciar carrito
+  </button>
+  <button className="btn-confirmar" onClick={confirmarPedido}>
+    Confirmar pedido
+  </button>
+  <button className="btn-seguir" onClick={() => navigate('/')}>
+    Seguir comprando
+  </button>
+</div>
+</div>
+ ); 
+}
+ export default PedidoCompleto;
