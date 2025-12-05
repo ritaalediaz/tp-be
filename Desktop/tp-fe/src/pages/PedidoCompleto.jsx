@@ -85,8 +85,6 @@ function PedidoCompleto() {
           id_pizza: Number(pizza.id)
         };
 
-   
-
         const resDetalle = await fetch('https://tp-be.onrender.com/detalle-pedido', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
