@@ -62,6 +62,8 @@ const pedidoBase = {
   direccionEnvio: direccion || "" // 👈 corregido
 };
 
+console.log("📦 Pedido a enviar:", pedidoBase);
+
   try {
   const resPedido = await fetch('https://tp-be.onrender.com/pedidos', {
     method: 'POST',
