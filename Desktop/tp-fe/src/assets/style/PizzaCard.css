@@ -11,7 +11,7 @@
 /* === Grid de pizzas: 3 columnas fijas === */
 .pizza-contenedor3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 👈 ahora son 3 columnas */
+  grid-template-columns: repeat(4, 1fr); /* 👈 ahora son 3 columnas */
   gap: 20px;
   padding: 20px;
   width: 100%;
