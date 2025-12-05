@@ -85,7 +85,7 @@ function PedidoCompleto() {
           id_pizza: Number(pizza.id)
         };
 
-        console.log("🧾 Detalle a enviar:", detalle);
+        console.log("📦 Pizza personalizada a enviar:", JSON.stringify(pizzaPersonalizada, null, 2))
 
         const resDetalle = await fetch('https://tp-be.onrender.com/detalle-pedido', {
           method: 'POST',

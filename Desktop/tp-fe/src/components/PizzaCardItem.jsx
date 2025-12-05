@@ -1,5 +1,6 @@
+
 import { useState } from 'react';
-import Swal from 'sweetalert2'; // 👈 importamos SweetAlert2
+import Swal from 'sweetalert2';
 
 function PizzaCardItem({ pizza, onAgregar }) {
   const [cantidad, setCantidad] = useState(0);
@@ -21,11 +22,13 @@ function PizzaCardItem({ pizza, onAgregar }) {
     }
   };
 
+  // Log fuera del JSX
+  console.log("Imagen recibida:", pizza.imagen);
+
   return (
     <div className="tarjeta-pizza">
       {/* 🖼️ Imagen de la pizza */}
       <div className="imagen-contenedor">
-        {console.log("Imagen recibida:", pizza.imagen)};
         <img
           src={`/imagenes/${pizza.imagen || "default.png"}`}
           alt={pizza.nombre || "Pizza genérica"}
@@ -35,7 +38,6 @@ function PizzaCardItem({ pizza, onAgregar }) {
       </div>
 
       <h3>{pizza.nombre || "Sin nombre"}</h3>
-      
       <p className="precio">Precio: ${pizza.precio || "?"}</p>
 
       <div className="cantidad">
@@ -57,4 +59,3 @@ function PizzaCardItem({ pizza, onAgregar }) {
 }
 
 export default PizzaCardItem;
-
