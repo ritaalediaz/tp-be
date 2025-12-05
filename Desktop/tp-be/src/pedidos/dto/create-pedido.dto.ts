@@ -11,7 +11,7 @@ export class CreatePedidoDto {
 
   @IsNotEmpty()
   @IsNumber()
-  clienteId: number;   // 👈 relación con cliente
+  clienteId: number;
 
   @IsNotEmpty()
   @IsString()
