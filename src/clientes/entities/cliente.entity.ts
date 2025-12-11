@@ -16,6 +16,9 @@ export class Cliente {
   @Column()
   email: string;
 
+  @Column({ default: 'cliente' })
+rol: string;
+
   @OneToMany(() => Pedido, (pedido) => pedido.cliente)
   pedido: Pedido;
 

@@ -15,6 +15,7 @@ export class ClientesService {
     @InjectRepository(Cliente)
     private readonly clienteRepository: Repository<Cliente>,
   ) {}
+
   async create(creatClienteDto: CreateClienteDto): Promise<Cliente> {
     try {
       const nuevoCliente = this.clienteRepository.create(creatClienteDto);
@@ -34,7 +35,6 @@ export class ClientesService {
     if (!cliente) {
       throw new NotFoundException('cliente no encontrado');
     }
-
     return cliente;
   }
 
@@ -55,8 +55,11 @@ export class ClientesService {
     await this.clienteRepository.remove(cliente);
   }
 
-  //nuevo metodo para login
+  // 👇 Método para login con rol incluido
   async findByNombreUsuario(nombre_usuario: string): Promise<Cliente | null> {
-    return await this.clienteRepository.findOne({ where: { nombre_usuario } });
+    return await this.clienteRepository.findOne({
+      where: { nombre_usuario },
+      select: ['id', 'nombre_usuario', 'email', 'contraseña', 'rol'], // 👈 incluimos rol
+    });
   }
 }
