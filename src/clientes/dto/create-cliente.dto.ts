@@ -1,4 +1,5 @@
-import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
+/* eslint-disable prettier/prettier */
+ import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 
 export class CreateClienteDto {
   @IsNotEmpty()
