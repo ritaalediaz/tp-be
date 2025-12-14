@@ -70,7 +70,7 @@ export class ClientesController {
     };
   }
 
-  // 👇 Endpoint protegido solo para admin (modo test sin JWT)
+  //  Endpoint protegido solo para admin (modo test sin JWT)
   @UseGuards(AdminGuard)
   @Post('usuarios') // usamos POST para poder enviar rol en el body
   findAllUsuarios(@Body() body: any) {
