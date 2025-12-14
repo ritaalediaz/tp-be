@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-
 @Entity()
 export class Pizza {
   @PrimaryGeneratedColumn()

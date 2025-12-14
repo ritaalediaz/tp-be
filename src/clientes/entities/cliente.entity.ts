@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Pedido } from 'src/pedidos/entities/pedido.entity';
 import { Pizza } from 'src/pizzas/entities/pizza.entity';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
@@ -15,6 +16,9 @@ export class Cliente {
 
   @Column()
   email: string;
+
+  @Column({ default: 'cliente' })
+  rol: string;
 
   @OneToMany(() => Pedido, (pedido) => pedido.cliente)
   pedido: Pedido;

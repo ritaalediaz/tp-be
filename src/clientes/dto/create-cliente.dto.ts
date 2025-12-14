@@ -1,4 +1,5 @@
-import { IsString, IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
+/* eslint-disable prettier/prettier */
+ import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 
 export class CreateClienteDto {
   @IsNotEmpty()
@@ -12,4 +13,8 @@ export class CreateClienteDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  rol: string; // 'cliente' o 'admin'
 }
