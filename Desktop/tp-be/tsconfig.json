@@ -21,5 +21,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".nyc_output",
+    ".vscode",
+    "AppData",
+    "**/AppData/Roaming/Code/User/History"
+  ]
 }

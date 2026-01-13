@@ -1,3 +1,4 @@
+
 # compiled output
 /dist
 /node_modules
@@ -14,6 +15,8 @@ lerna-debug.log*
 
 # OS
 .DS_Store
+Thumbs.db
+desktop.ini
 
 # Tests
 /coverage
@@ -24,9 +27,9 @@ lerna-debug.log*
 .project
 .classpath
 .c9/
-*.launch
+/*.launch
 .settings/
-*.sublime-workspace
+/*.sublime-workspace
 
 # IDE - VSCode
 .vscode/*
@@ -34,6 +37,10 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# VS Code history (para evitar errores de compilación)
+AppData/
+**/AppData/Roaming/Code/User/History/
 
 # dotenv environment variable files
 .env
